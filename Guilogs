@@ -1,0 +1,13 @@
+qml: image pump a clicked!
+2022-07-13 13:47:27,630 MainThread      DEBUG    ModbusInfo     :125      Variable de type boolean écrite à l'adresse 54.0 par modbus: True
+Both point size and pixel size set. Using pixel size.
+Both point size and pixel size set. Using pixel size.
+qml: image warnings clicked!
+qml: push to page 3
+2022-07-13 13:47:32,861 MainThread      DEBUG    ModbusInfo     :125      Variable de type boolean écrite à l'adresse 54.0 par modbus: False
+qml: image warnings clicked!
+qml: push to page 1
+QQmlComponent: Component is not ready
+file:///home/root/GUI_Demo_Custom/QML_UI/App.ui.qml:19:5: QML StackView: push: file:///home/root/GUI_Demo_Custom/QML_UI/P2_parameters.ui.qml:8 module "QtQuick.VirtualKeyboard" is not installed
+qml: image parameters clicked!
+qml: push to page 2
