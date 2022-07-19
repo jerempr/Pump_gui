@@ -18,16 +18,6 @@ QtObject {
     property string displaydefautelec: ""
 
     //modbus value recived:
-    property string displayIhmSeuilNTB: "N/A"
-    property string displayIhmSeuilNB: "N/A"
-    property string displayIhmSeuilNH: "N/A"
-    property string displayIhmSeuilNTH: "N/A"
-    property string displayIhmVolumeRVNH: "N/A"
-    property string displayIhmVolumeRVNTH: "N/A"
-    property string displayIhmDecalage: "N/A"
-    property string displayIhmOffsetgraisse: "N/A"
-
-    property string displayIhm: ""
     property variant displayIhmList: ""
 
     property int displayvaleur_niveau_cuve: 5
@@ -52,21 +42,8 @@ QtObject {
     }
     function modbusinfofunc(displayIhm,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
         // console.log("ça marche 3");
-
         // Receive list Ihm and split it to get all the values and then attribute it to the variables:
         displayIhmList = displayIhm.split(',')
-        console.log("Voila le modbus objet reçu: ",displayIhmList);
-        
-        displayIhmSeuilNB = displayIhmList[0]
-        displayIhmSeuilNH = displayIhmList[1]
-        displayIhmSeuilNTB = displayIhmList[2]
-        displayIhmSeuilNTH = displayIhmList[3]
-        displayIhmVolumeRVNH = displayIhmList[4]
-        displayIhmVolumeRVNTH = displayIhmList[5]
-        displayIhmDecalage = displayIhmList[6]
-        displayIhmOffsetgraisse = displayIhmList[7]
-
-
 
         displayvaleur_niveau_cuve = valeur_niveau_cuve
         displaydefautelec = String(defautelec)
