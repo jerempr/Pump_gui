@@ -2,6 +2,7 @@
 import sys
 from ModBus_Communication import OperaMetrix_ModbusTCP_client
 from time import sleep
+# from Pump_app.control.test import Myclient
 from logger import *
 from SysInfo import Get_clean_datetime
 
@@ -43,6 +44,7 @@ class Modbusinfo(QThread):
         self.dateofdefault2 = ""
         self.marchep1_54 = False
         self.marchep2_75 = False
+        self.Table = []
         sleep(1)
 
      
@@ -51,6 +53,8 @@ class Modbusinfo(QThread):
         message2 = ":<b>  - Défaut sur la pompe 2 -  </b>"
         while(True):
                 #Récupération des valeurs en modbus sur l'automate:
+                # self.Table = self.Myclient.Read_all_addr
+                
                 self.niveau_cuve = self.Myclient.Read_addr(87)
                 self.IhmSeuilNTB = self.Myclient.Read_addr(101)
                 self.marchep1_54 = self.Myclient.Read_addr(54,"bool")
@@ -72,12 +76,12 @@ class Modbusinfo(QThread):
         
     @Slot(int,float)
     def Write_modbus_float(self,addr,obj):
-        log.debug(f"Variable de type float écrite à l'adresse {addr} par modbus: {obj}")
+        log.info(f"Variable de type float écrite à l'adresse {addr} par modbus: {obj}")
         self.Myclient.Write_addr(addr,float(obj))
 
     @Slot(float,bool)
     def Write_modbus_boolean(self,addr, obj):
-        log.debug(f"Variable de type boolean écrite à l'adresse {addr} par modbus: {obj}")
+        log.info(f"Variable de type boolean écrite à l'adresse {addr} par modbus: {obj}")
         self.Myclient.Write_addr(addr,float(obj),"bool")
         if addr == 54:
                 self.pompe1default = obj

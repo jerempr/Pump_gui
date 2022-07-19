@@ -41,7 +41,7 @@ class OperaMetrix_ModbusTCP_client():
         if self.client.close():
             log.debug("disconnected from client")   
 
-    def Read_addr(self,addr,Type = 'float',verbose = True):
+    def Read_addr(self,addr,Type = 'float',verbose = False):
         """ Allows to read a value from modbus API with IP address 192.168.0.90 
         ## Pameters:
         - addr:  the address of the infomation you want to read
@@ -65,14 +65,7 @@ class OperaMetrix_ModbusTCP_client():
             value = decoder.decode_string(8)
         elif Type == 'bool':
             b = addr%int(addr)
-            if b == 0:
-                value = decoder.decode_bits()[0]
-            elif 0.051>b and b>0.049:
-                value = decoder.decode_bits()[1]
-            elif 0.11>b and b>0.099:
-                value = decoder.decode_bits()[2]
-            else:
-                return False
+            value = decoder.decode_bits()[round(b*20)]
         elif Type == '16uint':
             value = decoder.decode_16bit_int()
         elif Type == '8uint':
@@ -92,16 +85,16 @@ class OperaMetrix_ModbusTCP_client():
         """
         A_float = [x for x in range(0,54,2)]
         B_bool = [54, 54.05 , 54.1]
-        C_float = [x for x in range(55,77,2) ]
+        C_float = [x for x in range(55,75,2) ]
         D_bool = [75 , 75.05 , 75.1]
         E_float = [76,78,80] 
         F_bool = [82]
         G_float = [x for x in range(83,113,2)]
         H_bool = [113]
-        I_uint = [114]
-        J_usint = [x for x in range(115,118,0.5)]
-        K_udint = [118]
-        L_bool = [120]
+        # I_uint = [114]
+        # J_usint = [x for x in range(115,118,0.5)]
+        # K_udint = [118]
+        # L_bool = [120]
         VALUES = [[],[]]
         for i in A_float:
             VALUES[0].append(i)
@@ -136,9 +129,10 @@ class OperaMetrix_ModbusTCP_client():
         # for i in K_udint:
         #     VALUES[0].append(i)
         #     VALUES[1].append(self.Read_addr(i,'bool'))
-        for i in L_bool:
-            VALUES[0].append(i)
-            VALUES[1].append(self.Read_addr(i,'bool'))
+        # for i in L_bool:
+        #     VALUES[0].append(i)
+        #     VALUES[1].append(self.Read_addr(i,'bool'))
+        return VALUES
     
     def Write_addr(self,addr,object,Type = 'float'):
         """ Allows to write a value to a modbus API with IP address 192.168.0.90 
@@ -157,18 +151,13 @@ class OperaMetrix_ModbusTCP_client():
         elif Type == 'string':
             builder.add_string(object)
         elif Type == 'bool':
-            decimales = addr%int(addr)
             b = int(addr)
-            if decimales == 0:
-                towrite = [object,self.Read_addr(b+0.05,Type,False),self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.4,Type,False)]
-                builder.add_bits(towrite)
-            elif 0.51>decimales and decimales>0.049:
-                towrite = [self.Read_addr(b,Type,False),object,self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.4,Type,False)]
-                builder.add_bits(towrite)
-            elif 0.11>decimales and decimales>0.099:
-                towrite = [self.Read_addr(b,Type,False),self.Read_addr(b+0.05,Type,False),object,self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.4,Type,False)]                
-                builder.add_bits(towrite)
-            logging.info(f"towrite: {towrite}")
+            decimales = addr%b
+            towrite = [self.Read_addr(b,Type,False),self.Read_addr(b+0.05,Type,False),self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.35,Type,False)]
+            # logging.info(f"towrite: {towrite}")
+            towrite[round(decimales*20)] = object
+            builder.add_bits(towrite)
+            # logging.info(f"towrite: {towrite}")
         elif Type == '16uint':
             b = addr%int(addr)
             if b == 0:
@@ -177,8 +166,6 @@ class OperaMetrix_ModbusTCP_client():
                 builder.add_16bit_uint(object)            
         elif Type == '8int':
             builder.add_8bit_uint(object)
-            
-
 
         payload = builder.build()
         # print (f"TEEEEEST {payload}\n")

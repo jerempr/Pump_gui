@@ -48,7 +48,6 @@ QtObject {
         displaydefautelec = String(defautelec)
         display_working_p1 = marchep1
         display_working_p2 = marchep2
-        
     }
 }
 

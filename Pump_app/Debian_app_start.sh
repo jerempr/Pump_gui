@@ -8,8 +8,10 @@ echo "eth0 IP changed to to 192.168.0.200 to math API IP"
 echo "loading qt demo..."
 export QT_QPA_PLATFORM=eglfs
 export QT_QPA_EGLFS_ALWAYS_SET_MODE=1
+export QT_QPA_EGLFS_PHYSICAL_WIDTH=1280
+export QT_QPA_EGLFS_PHYSICAL_HEIGHT=720
 # in order to not show the warning message:
-export XDG_RUNTIME_DIR='/var/volatile/tmp/runtime-root'
+# export XDG_RUNTIME_DIR='/var/volatile/tmp/runtime-root'
 cd /home/pi/gui/Pump_gui/Pump_app/control/
 echo "qt demo start ok!"
 # python3 main.py
