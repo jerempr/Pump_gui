@@ -2,7 +2,6 @@
 import sys
 from ModBus_Communication import OperaMetrix_ModbusTCP_client
 from time import sleep
-# from Pump_app.control.test import Myclient
 from logger import *
 from SysInfo import Get_clean_datetime
 
@@ -36,7 +35,7 @@ class Modbusinfo(QThread):
         self.Myclient = OperaMetrix_ModbusTCP_client()
         self.Myclient.connect()
         self.niveau_cuve = 50
-        self.IhmSeuilNTB = 0
+        self.Ihm_parameters = []
         self.pompe2default = False
         self.pompe1default = False
         self.defautelec_message = ""
@@ -56,13 +55,21 @@ class Modbusinfo(QThread):
                 # self.Table = self.Myclient.Read_all_addr
                 
                 self.niveau_cuve = self.Myclient.Read_addr(87)
-                self.IhmSeuilNTB = self.Myclient.Read_addr(101)
+                # self.IhmSeuilNTB = self.Myclient.Read_addr(101)
+                # self.IhmSeuilNB =  self.Myclient.Read_addr(97)
+                # self.IhmSeuilNH = self.Myclient.Read_addr(99)
+                # self.IhmSeuilNTH = self.Myclient.Read_addr(103)
+                # self.IhmVolumeNH = self.Myclient.Read_addr(105)
+                # self.IhmVolumeNTH = self.Myclient.Read_addr(107)
+                
+                self.Ihm_parameters = self.Myclient.Get_Ihm_parameters()
+                
+                
                 self.marchep1_54 = self.Myclient.Read_addr(54,"bool")
                 self.marchep2_75 = self.Myclient.Read_addr(75,"bool")
                 self.pompe2default = self.Myclient.Read_addr(75.05,"bool")
                 self.pompe1default = self.Myclient.Read_addr(54.05,"bool")
                 #traitement de ces valeurs afin de les envoyer à l'Ihm:
-                IhmSeuilNTB_var = str(round(self.IhmSeuilNTB,2))
                 
                 # get the date of defaults if there is some
                 self.dateofdefault1 = attribute_default_pump_datetime(self.pompe1default,self.dateofdefault1)
@@ -71,7 +78,7 @@ class Modbusinfo(QThread):
                 self.defautelec_message = (self.dateofdefault1 + message1)*self.pompe1default + (self.dateofdefault2 + message2)*self.pompe2default
                 self.sleep(1)
                 # Envoi de ces valeurs à l'Ihm:
-                self.SystemSignal.emit(IhmSeuilNTB_var,self.niveau_cuve,self.defautelec_message,self.marchep1_54,self.marchep2_75)
+                self.SystemSignal.emit(self.Ihm_parameters,self.niveau_cuve,self.defautelec_message,self.marchep1_54,self.marchep2_75)
                 sleep(1)
         
     @Slot(int,float)

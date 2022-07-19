@@ -36,11 +36,19 @@ Item {
     // TODO
     Text{
         x: 494
-        y: 120
+        y: 100
         text: "Paramétrage"
         color: "#5f5fe1"
         font.pixelSize: 45
         horizontalAlignment: Text.AlignCenter
+    }
+
+    Rectangle{
+        x: 595
+        y: 180
+        color: "blue"
+        width: 10
+        height: 500
     }
 
     Text{
@@ -50,7 +58,167 @@ Item {
         color: "black"
         font.pixelSize: 20
         horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmsntb
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[2]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
+                console.info("Written: ",txt_ihmsntb.text)
+            }
+        }
     }
+
+    Text{
+        x: 13
+        y: 280
+        text: "Seuil niveau bas (m) :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmsnb
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[0]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(97,txt_ihmsnb.text.replace(",","."))
+                console.info("Written: ",txt_ihmsnb.text)
+            }
+        }
+    }
+
+    Text{
+        x: 13
+        y: 370
+        text: "Seuil niveau haut (m) :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmsnh
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[1]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(99,txt_ihmsnh.text.replace(",","."))
+                console.info("Written: ",txt_ihmsnh.text)
+            }
+        }
+    }
+
+    Text{
+        x: 13
+        y: 460
+        text: "Seuil niveau très haut (m) :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmsnth
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[3]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(103,txt_ihmsnth.text.replace(",","."))
+                console.info("Written: ",txt_ihmsnth.text)
+            }
+        }
+    }
+
+    Text{
+        x: 13
+        y: 550
+        text: "Volume rempli/vidangé si niveau haut (m) :"
+        color: "black"
+        font.pixelSize: 15
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmvrvnh
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[4]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(105,txt_ihmvrvnh.text.replace(",","."))
+                console.info("Written: ",txt_ihmvrvnh.text)
+            }
+        }
+    }
+
+    Text{
+        x: 13
+        y: 640
+        text: "Volume rempli/vidangé si niveau très haut (m) :"
+        color: "black"
+        font.pixelSize: 15
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmvrvnth
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[5]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(107,txt_ihmvrvnth.text.replace(",","."))
+                console.info("Written: ",txt_ihmvrvnth.text)
+            }
+        }
+    }
+
+    Text{
+        x: 680
+        y: 190
+        text: "Temps de décalage entre les 2 pompes (h) :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            id: txt_ihmecart
+            x: 350
+            y: -5
+            text: Data.Values.displayIhmList[6]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(109,txt_ihmecart.text.replace(",","."))
+                console.info("Written: ",txt_ihmecart.text)
+            }
+        }
+    }
+
     
     // InputPanel {
     //     id:inputPanel
@@ -60,20 +228,6 @@ Item {
     // }
 
 
-    TextField{
-        id: txt_ihmsntb
-        x: 366
-        y: 176.2
-        text: Data.Values.displayIhmSeuilNTB
-        font.pixelSize: 15
-        // activeFocusOnTab: true 
-        // color: activeFocus ? "black" : "gray " 
-        focus: true 
-        // color: "black"
-        onEditingFinished:{
-            _Modbusinfo.Write_modbus_float(101,txt_ihmsntb.text)
-            console.info("Written: ",txt_ihmsntb.text)
-        }
-    }
+
 
 }

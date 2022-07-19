@@ -1,32 +1,11 @@
 qt5ct: using qt5ct plugin
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
 qml: image parameters clicked!
 qml: push to page 2
-2022-07-19 14:18:33,185 MainThread      INFO     ModbusInfo     :79       Variable de type float écrite à l'adresse 101 par modbus: nan
-2022-07-19 14:18:33,211 MainThread      INFO     ModBus_Communication:176      [31mwriting nan in 101[39m
-qml: Written:  1,9
-2022-07-19 14:18:35,662 MainThread      INFO     ModbusInfo     :79       Variable de type float écrite à l'adresse 101 par modbus: nan
-2022-07-19 14:18:35,680 MainThread      INFO     ModBus_Communication:176      [31mwriting nan in 101[39m
-qml: Written:  1,9
-qml: image parameters clicked!
-qml: push to page 1
-qml: image parameters clicked!
-qml: push to page 2
-qml: image parameters clicked!
-qml: push to page 1
-qml: image parameters clicked!
-qml: push to page 2
-2022-07-19 14:18:51,984 MainThread      INFO     ModbusInfo     :79       Variable de type float écrite à l'adresse 101 par modbus: nan
-2022-07-19 14:18:52,022 MainThread      INFO     ModBus_Communication:176      [31mwriting nan in 101[39m
-qml: Written:  1,9
-2022-07-19 14:19:02,008 MainThread      INFO     ModbusInfo     :79       Variable de type float écrite à l'adresse 101 par modbus: 1.9
-2022-07-19 14:19:02,036 MainThread      INFO     ModBus_Communication:176      [31mwriting 1.9 in 101[39m
-qml: Written:  1.9
-2022-07-19 14:19:05,313 MainThread      INFO     ModbusInfo     :79       Variable de type float écrite à l'adresse 101 par modbus: 1.9
-2022-07-19 14:19:05,338 MainThread      INFO     ModBus_Communication:176      [31mwriting 1.9 in 101[39m
-qml: Written:  1.9
-qml: image parameters clicked!
-qml: push to page 1
-qml: image parameters clicked!
-qml: push to page 2
-qml: image parameters clicked!
-qml: push to page 1
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]
+qml: Voila le modbus objet reçu:  [3.0,5.0,2.4,6.0,8.0,3.7,10.0,0.5]

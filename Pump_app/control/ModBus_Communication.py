@@ -134,6 +134,21 @@ class OperaMetrix_ModbusTCP_client():
         #     VALUES[1].append(self.Read_addr(i,'bool'))
         return VALUES
     
+    def Get_Ihm_parameters(self):
+        """allows to get all the parameters of the ihm:
+            ## Return a table with (as string separated by ','):
+            - Ihm seuil niveau bas
+            - Ihm seuil niveau haut
+            - Ihm seuil niveau très bas
+            - Ihm seuil niveau très haut
+            - Temps de Décalage
+            - Offset anneau Graisse
+        """
+        Table = ""
+        for k in range(97,113,2):
+            Table+=","+(str(round(self.Read_addr(k),2)))
+        return Table.replace(",","",1)
+    
     def Write_addr(self,addr,object,Type = 'float'):
         """ Allows to write a value to a modbus API with IP address 192.168.0.90 
         ## Pameters:
