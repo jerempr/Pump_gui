@@ -38,7 +38,10 @@ if __name__ == '__main__':
     # Hide the mouse:
     
     # location of the fullscreen app that we created before
-    url = QUrl("../QML_UI/App.ui.qml")
+    if "Debian" in os.popen('hostnamectl').read().strip():
+        url = QUrl("../QML_UI/App_Debian.ui.qml")
+    else:
+        url = QUrl("../QML_UI/App.ui.qml")
     
     context = engine.rootContext()
     

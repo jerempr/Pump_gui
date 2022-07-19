@@ -54,7 +54,8 @@ class OperaMetrix_ModbusTCP_client():
         # Test lecture et décodage Modbus
         # --------------------------------------------------------------------------- #
         response = self.client.read_holding_registers(int(addr),count=3)
-        print (response)
+        value = None
+        # print (response)
         # log.debug(f"\n Voici la réponse brute de PyModbus: {response}\n")
         decoder = BinaryPayloadDecoder.from_registers(registers=response.registers, endian=Endian.Big)
         # log.debug(f"Voici le décoder: {decoder}")
@@ -70,6 +71,8 @@ class OperaMetrix_ModbusTCP_client():
                 value = decoder.decode_bits()[1]
             elif 0.11>b and b>0.099:
                 value = decoder.decode_bits()[2]
+            else:
+                return False
         elif Type == '16uint':
             value = decoder.decode_16bit_int()
         elif Type == '8uint':
@@ -78,8 +81,8 @@ class OperaMetrix_ModbusTCP_client():
             log.error ("Wrong type given")
             exit()
         if verbose:
-            log.info (Fore.RED + f"Here is the response: {value}" + Fore.RESET)
-            return value
+            log.info (Fore.RED + f"Here is the response at {addr}: {value}" + Fore.RESET)
+        return value
         
 
     def Read_all_addr(self):
@@ -156,16 +159,16 @@ class OperaMetrix_ModbusTCP_client():
         elif Type == 'bool':
             decimales = addr%int(addr)
             b = int(addr)
-            print (b)
             if decimales == 0:
-                towrite = [object,self.Read_addr(b+0.05,"bool",False),self.Read_addr(b+0.1,"bool",False),self.Read_addr(b+0.15,"bool",False),self.Read_addr(b+0.2,"bool",False),self.Read_addr(b+0.25,"bool",False),self.Read_addr(b+0.3,"bool",False),self.Read_addr(b+0.4,"bool",False)]
+                towrite = [object,self.Read_addr(b+0.05,Type,False),self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.4,Type,False)]
                 builder.add_bits(towrite)
             elif 0.51>decimales and decimales>0.049:
-                towrite = [self.Read_addr(b,"bool",False),object,self.Read_addr(b+0.1,"bool",False),self.Read_addr(b+0.15,"bool",False),self.Read_addr(b+0.2,"bool",False),self.Read_addr(b+0.25,"bool",False),self.Read_addr(b+0.3,"bool",False),self.Read_addr(b+0.4,"bool",False)]
+                towrite = [self.Read_addr(b,Type,False),object,self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.4,Type,False)]
                 builder.add_bits(towrite)
             elif 0.11>decimales and decimales>0.099:
-                towrite = [self.Read_addr(b,"bool",False),self.Read_addr(b+0.05,"bool",False),object,self.Read_addr(b+0.15,"bool",False),self.Read_addr(b+0.2,"bool",False),self.Read_addr(b+0.25,"bool",False),self.Read_addr(b+0.3,"bool",False),self.Read_addr(b+0.4,"bool",False)]                
+                towrite = [self.Read_addr(b,Type,False),self.Read_addr(b+0.05,Type,False),object,self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.4,Type,False)]                
                 builder.add_bits(towrite)
+            logging.info(f"towrite: {towrite}")
         elif Type == '16uint':
             b = addr%int(addr)
             if b == 0:
@@ -174,6 +177,8 @@ class OperaMetrix_ModbusTCP_client():
                 builder.add_16bit_uint(object)            
         elif Type == '8int':
             builder.add_8bit_uint(object)
+            
+
 
         payload = builder.build()
         # print (f"TEEEEEST {payload}\n")

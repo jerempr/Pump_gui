@@ -20,7 +20,10 @@ QtObject {
     //modbus value recived:
     property string displayIhmSeuilNTB: "0"
 
-    property int displayvaleur_niveau_cuve: 50
+    property int displayvaleur_niveau_cuve: 5
+
+    property bool display_working_p1: false
+    property bool display_working_p2: false
 
     Component.onCompleted: {
         _Netinfo.SystemSignal.connect(netinfofunc)
@@ -37,12 +40,15 @@ QtObject {
         displayethernet = String(str5)
         displaywifi = String(str6)
     }
-    function modbusinfofunc(IhmSeuilNTB,valeur_niveau_cuve,defautelec) {
+    function modbusinfofunc(IhmSeuilNTB,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
         // console.log("ça marche 3");
         // console.log("Voila le modbus objet reçu: ",String(strobj));
         displayIhmSeuilNTB = String(IhmSeuilNTB)
         displayvaleur_niveau_cuve = valeur_niveau_cuve
         displaydefautelec = String(defautelec)
+        display_working_p1 = marchep1
+        display_working_p2 = marchep2
+        
     }
 }
 

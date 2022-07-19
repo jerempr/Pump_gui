@@ -57,7 +57,7 @@ Item {
             font.pixelSize: 15
             onClicked:
             {
-                _Modbusinfo.Write_modbus_boolean(54,0)
+                _Modbusinfo.Write_modbus_boolean(82,1)
             }
         }
     }
@@ -83,7 +83,7 @@ Item {
             font.pixelSize: 15
             onClicked:
             {
-                _Modbusinfo.Write_modbus_boolean(75,0)
+                _Modbusinfo.Write_modbus_boolean(82,1)
             }
         }
     }
