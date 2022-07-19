@@ -29,13 +29,12 @@ def attribute_default_pump_datetime(bin,date):
 
 
 class Modbusinfo(QThread):
-    SystemSignal = Signal(str,float,str,bool,bool)
+    SystemSignal = Signal(str,bool,float,str,bool,bool)
     def __init__(self):
         super().__init__()
         self.Myclient = OperaMetrix_ModbusTCP_client()
         self.Myclient.connect()
         self.niveau_cuve = 50
-        self.Ihm_parameters = []
         self.pompe2default = False
         self.pompe1default = False
         self.defautelec_message = ""
@@ -44,7 +43,8 @@ class Modbusinfo(QThread):
         self.marchep1_54 = False
         self.marchep2_75 = False
         self.Table = []
-        sleep(1)
+        
+        self.MUTEX = False
 
      
     def run(self):
@@ -53,22 +53,22 @@ class Modbusinfo(QThread):
         while(True):
                 #Récupération des valeurs en modbus sur l'automate:
                 # self.Table = self.Myclient.Read_all_addr
+                self.Wait_for_mutex()
+
+                self.MUTEX = True
                 
                 self.niveau_cuve = self.Myclient.Read_addr(87)
-                # self.IhmSeuilNTB = self.Myclient.Read_addr(101)
-                # self.IhmSeuilNB =  self.Myclient.Read_addr(97)
-                # self.IhmSeuilNH = self.Myclient.Read_addr(99)
-                # self.IhmSeuilNTH = self.Myclient.Read_addr(103)
-                # self.IhmVolumeNH = self.Myclient.Read_addr(105)
-                # self.IhmVolumeNTH = self.Myclient.Read_addr(107)
-                
-                self.Ihm_parameters = self.Myclient.Get_Ihm_parameters()
+        
+                Ihm_parameters = self.Myclient.Get_Ihm_parameters()
+                GraisseOn = self.Myclient.Read_addr(113,'bool')
                 
                 
                 self.marchep1_54 = self.Myclient.Read_addr(54,"bool")
                 self.marchep2_75 = self.Myclient.Read_addr(75,"bool")
                 self.pompe2default = self.Myclient.Read_addr(75.05,"bool")
                 self.pompe1default = self.Myclient.Read_addr(54.05,"bool")
+                
+                self.MUTEX = False
                 #traitement de ces valeurs afin de les envoyer à l'Ihm:
                 
                 # get the date of defaults if there is some
@@ -78,18 +78,33 @@ class Modbusinfo(QThread):
                 self.defautelec_message = (self.dateofdefault1 + message1)*self.pompe1default + (self.dateofdefault2 + message2)*self.pompe2default
                 self.sleep(1)
                 # Envoi de ces valeurs à l'Ihm:
-                self.SystemSignal.emit(self.Ihm_parameters,self.niveau_cuve,self.defautelec_message,self.marchep1_54,self.marchep2_75)
+                self.SystemSignal.emit(Ihm_parameters,GraisseOn,self.niveau_cuve,self.defautelec_message,self.marchep1_54,self.marchep2_75)
                 sleep(1)
         
+        
+    def Wait_for_mutex(self):
+        if self.MUTEX:
+                sleep(1)
+                return self.Wait_for_mutex
+        else:
+                self.MUTEX = True
+                exit
+            
+
     @Slot(int,float)
     def Write_modbus_float(self,addr,obj):
+        self.Wait_for_mutex()
         log.info(f"Variable de type float écrite à l'adresse {addr} par modbus: {obj}")
         self.Myclient.Write_addr(addr,float(obj))
+        self.MUTEX = False
+        
 
     @Slot(float,bool)
     def Write_modbus_boolean(self,addr, obj):
+        self.Wait_for_mutex()
         log.info(f"Variable de type boolean écrite à l'adresse {addr} par modbus: {obj}")
         self.Myclient.Write_addr(addr,float(obj),"bool")
+        self.MUTEX = False
         if addr == 54:
                 self.pompe1default = obj
                 if obj:

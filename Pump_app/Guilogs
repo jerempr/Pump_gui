@@ -1,3 +1,4 @@
 qt5ct: using qt5ct plugin
-qml: image parameters clicked!
-qml: push to page 2
+qml: image pump a clicked!
+2022-07-19 16:53:45,719 MainThread      INFO     ModbusInfo     :105      Variable de type boolean écrite à l'adresse 54.0 par modbus: True
+2022-07-19 16:53:46,080 MainThread      INFO     ModBus_Communication:195      [31mwriting 1.0 in 54.0[39m

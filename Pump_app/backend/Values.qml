@@ -19,6 +19,7 @@ QtObject {
 
     //modbus value recived:
     property variant displayIhmList: ""
+    property bool display_graisseOn: true
 
     property int displayvaleur_niveau_cuve: 5
 
@@ -40,10 +41,11 @@ QtObject {
         displayethernet = String(str5)
         displaywifi = String(str6)
     }
-    function modbusinfofunc(displayIhm,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
+    function modbusinfofunc(displayIhm,GraisseOn,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
         // console.log("ça marche 3");
         // Receive list Ihm and split it to get all the values and then attribute it to the variables:
         displayIhmList = displayIhm.split(',')
+        display_graisseOn = GraisseOn
 
         displayvaleur_niveau_cuve = valeur_niveau_cuve
         displaydefautelec = String(defautelec)

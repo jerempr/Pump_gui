@@ -143,10 +143,14 @@ class OperaMetrix_ModbusTCP_client():
             - Ihm seuil niveau très haut
             - Temps de Décalage
             - Offset anneau Graisse
+            - Valeur mini niveau
+            - Valeur maxi niveau
         """
         Table = ""
         for k in range(97,113,2):
             Table+=","+(str(round(self.Read_addr(k),2)))
+        Table+=","+(str(round(self.Read_addr(89),2)))
+        Table+=","+(str(round(self.Read_addr(91),2)))
         return Table.replace(",","",1)
     
     def Write_addr(self,addr,object,Type = 'float'):

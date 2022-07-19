@@ -196,7 +196,7 @@ Item {
     }
 
     Text{
-        x: 680
+        x: 625
         y: 190
         text: "Temps de décalage entre les 2 pompes (h) :"
         color: "black"
@@ -204,7 +204,7 @@ Item {
         horizontalAlignment: Text.AlignCenter
         TextField{
             id: txt_ihmecart
-            x: 350
+            x: 400
             y: -5
             text: Data.Values.displayIhmList[6]
             font.pixelSize: 15
@@ -218,6 +218,140 @@ Item {
             }
         }
     }
+
+    Text{
+        x: 625
+        y: 280
+        text: "Offset de l'anneau de graisse (+/-) :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            x: 400
+            y: -5
+            text: Data.Values.displayIhmList[7]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                console.info("Written: ",parent.text)
+            }
+        }
+    }
+
+    Text{
+        x: 625
+        y: 280
+        text: "Offset de l'anneau de graisse (+/-) :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            x: 400
+            y: -5
+            text: Data.Values.displayIhmList[7]
+            font.pixelSize: 15
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                console.info("Written: ",parent.text)
+            }
+        }
+    }
+
+    Text{
+        x: 625
+        y: 360
+        text: "Valeur Maxi Niveau :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            x: 400
+            y: -5
+            text: Data.Values.displayIhmList[9]
+            font.pixelSize: 20
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                console.info("Written: ",parent.text)
+            }
+        }
+    }
+
+    Text{
+        x: 625
+        y: 450
+        text: "Valeur mini niveau :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        TextField{
+            x: 400
+            y: -5
+            text: Data.Values.displayIhmList[8]
+            font.pixelSize: 20
+            // activeFocusOnTab: true 
+            // color: activeFocus ? "black" : "gray " 
+            focus: true 
+            // color: "black"
+            onEditingFinished:{
+                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                console.info("Written: ",parent.text)
+            }
+        }
+    }
+
+    Text{
+        x: 625
+        y: 560
+        text: "Activation niveau de graisse :"
+        color: "black"
+        font.pixelSize: 20
+        horizontalAlignment: Text.AlignCenter
+        Image {
+            source: "../images/stop.png"
+            visible: Data.Values.display_graisseOn
+            x: 350
+            y: -5
+            width: 150
+            height: 150
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    console.info("image graisse on clicked!")
+                    _Modbusinfo.Write_modbus_boolean(113,0)
+                }
+            }
+        }
+        Image {
+            source: "../images/start.png"
+            visible: !Data.Values.display_graisseOn
+            x: 350
+            y: -5
+            width: 100
+            height: 100
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    console.info("image graisse on clicked!")
+                    _Modbusinfo.Write_modbus_boolean(113,1)
+                }
+            }
+        }
+    }
+
+
+
 
     
     // InputPanel {
