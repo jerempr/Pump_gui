@@ -1,4 +1,11 @@
+2022-07-20 16:45:06,419 MainThread      INFO     __init__       :58       Using Qt Implementation: PySide2
 qt5ct: using qt5ct plugin
-qml: image pump a clicked!
-2022-07-19 16:53:45,719 MainThread      INFO     ModbusInfo     :105      Variable de type boolean écrite à l'adresse 54.0 par modbus: True
-2022-07-19 16:53:46,080 MainThread      INFO     ModBus_Communication:195      [31mwriting 1.0 in 54.0[39m
+qml: 
+received popup:  true
+file:///home/pi/gui/Pump_gui/Pump_app/QML_UI/App_Debian.ui.qml:41:5: QML Popup: Binding loop detected for property "visible"
+qml: 
+received popup:  false
+Shutdown scheduled for Wed 2022-07-20 16:46:09 CEST, use 'shutdown -c' to cancel.
+2022-07-20 16:45:09,798 MainThread      INFO     ReterminalInfo :64       Thanks, the system will reboot now
+QThread: Destroyed while thread is still running
+Aborted

@@ -21,10 +21,13 @@ else:
 	print("this app use pyside2")
 
 from NetInfo import Netinfo
-from System import Setting
 from ModbusInfo import Modbusinfo
 from SysInfo import Sysinfo
+from ReterminalInfo import Reterminalinfo
  
+
+import asyncio
+import asyncqt
 
 
 
@@ -34,7 +37,9 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
     engine.addImportPath("../imports")
     os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
-
+    
+    
+    
     # Hide the mouse:
     
     # location of the fullscreen app that we created before
@@ -46,21 +51,31 @@ if __name__ == '__main__':
     context = engine.rootContext()
     
     # Récup-re les classes créées dans les dépendances:
-    seting = Setting()
+    sysinfo = Sysinfo()
     netinfo = Netinfo()
     modinfo = Modbusinfo()
-    sysinfo = Sysinfo()
-
+    reterminalinfo = Reterminalinfo()
+    
+    
+    # Add close async interruption:
+    # création de la boucle qui va permettre l'interruption de fermeture d'application
+    loop = asyncqt.QEventLoop(app)
+    asyncio.set_event_loop(loop)
+    
 
     # Rends les composants utilisables pour les .qml
-    context.setContextProperty("_Setting", seting)
+    context.setContextProperty("_Sysinfo", sysinfo)
     context.setContextProperty("_Netinfo", netinfo)
     context.setContextProperty("_Modbusinfo", modinfo)
-    context.setContextProperty("_Sysinfo", sysinfo)
+    context.setContextProperty("_Reterminalinfo", reterminalinfo)
     
+    sysinfo.start()
     netinfo.start()
     modinfo.start()
-    sysinfo.start()
     
     engine.load(url)
+    #On lance la boucle d'interruption puis l'application
+    with loop:
+            loop.run_until_complete(reterminalinfo.btn_coroutine())
     app.exec_()
+    

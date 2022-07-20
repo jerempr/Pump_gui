@@ -14,6 +14,11 @@ else:
 
 
 def Get_clean_datetime():
+    """Allows to get the actual date and time
+
+    Returns:
+        string: <u>day / month / year</u> hour : minuts : seconds
+    """
     date = datetime.datetime.now()
     D1 = [date.day,date.month,date.hour,date.minute,date.second]
     D2 = ["","","","",""]
@@ -25,6 +30,8 @@ def Get_clean_datetime():
     return f"<u>{D2[0]}/{D2[1]}/{date.year}</u>   {D2[2]}:{D2[3]}:{D2[4]}"
 
 
+
+# class to handle the date
 class Sysinfo(QThread):
     SystemSignal = Signal(str)
     def __init__(self):

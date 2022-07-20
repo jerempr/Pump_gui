@@ -15,6 +15,7 @@ export QT_QPA_EGLFS_PHYSICAL_HEIGHT=720
 cd /home/pi/gui/Pump_gui/Pump_app/control/
 echo "qt demo start ok!"
 # python3 main.py
+
 python3 main.py>../Guilogs 2>&1
 echo "end of qt demo"
 rm /home/pi/gui/Pump_gui/Pump_app/*/*.qmlc

@@ -23,7 +23,8 @@ UNIT = 0x01
 
 class OperaMetrix_ModbusTCP_client():
     def __init__(self,host='192.168.0.90'):
-        self.client = ModbusTcpClient(host)
+        self.host = host
+        self.client = ModbusTcpClient(self.host)
 
     def connect(self):
         # --------------------------------------------------------------------------- #
@@ -40,6 +41,11 @@ class OperaMetrix_ModbusTCP_client():
         # --------------------------------------------------------------------------- #
         if self.client.close():
             log.debug("disconnected from client")   
+
+    def change_hostIP(self,ip):
+        """change the ip of the host where we want to connect
+        """
+        self.__init__(self,ip)
 
     def Read_addr(self,addr,Type = 'float',verbose = False):
         """ Allows to read a value from modbus API with IP address 192.168.0.90 
@@ -133,26 +139,7 @@ class OperaMetrix_ModbusTCP_client():
         #     VALUES[0].append(i)
         #     VALUES[1].append(self.Read_addr(i,'bool'))
         return VALUES
-    
-    def Get_Ihm_parameters(self):
-        """allows to get all the parameters of the ihm:
-            ## Return a table with (as string separated by ','):
-            - Ihm seuil niveau bas
-            - Ihm seuil niveau haut
-            - Ihm seuil niveau très bas
-            - Ihm seuil niveau très haut
-            - Temps de Décalage
-            - Offset anneau Graisse
-            - Valeur mini niveau
-            - Valeur maxi niveau
-        """
-        Table = ""
-        for k in range(97,113,2):
-            Table+=","+(str(round(self.Read_addr(k),2)))
-        Table+=","+(str(round(self.Read_addr(89),2)))
-        Table+=","+(str(round(self.Read_addr(91),2)))
-        return Table.replace(",","",1)
-    
+
     def Write_addr(self,addr,object,Type = 'float'):
         """ Allows to write a value to a modbus API with IP address 192.168.0.90 
         ## Pameters:

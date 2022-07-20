@@ -11,7 +11,7 @@ else:
 	from PySide2.QtCore import *
 	print("this app use pyside2")
  
-# class to handle button controls
+# class to handle button close controls
 class Setting(QObject):
     # close
     @Slot()

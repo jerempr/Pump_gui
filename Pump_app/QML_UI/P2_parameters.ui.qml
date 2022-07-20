@@ -236,34 +236,12 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                _Modbusinfo.Write_modbus_float(111,parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
     }
 
-    Text{
-        x: 625
-        y: 280
-        text: "Offset de l'anneau de graisse (+/-) :"
-        color: "black"
-        font.pixelSize: 20
-        horizontalAlignment: Text.AlignCenter
-        TextField{
-            x: 400
-            y: -5
-            text: Data.Values.displayIhmList[7]
-            font.pixelSize: 15
-            // activeFocusOnTab: true 
-            // color: activeFocus ? "black" : "gray " 
-            focus: true 
-            // color: "black"
-            onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
-                console.info("Written: ",parent.text)
-            }
-        }
-    }
 
     Text{
         x: 625
@@ -282,7 +260,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                _Modbusinfo.Write_modbus_float(91,parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -303,9 +281,8 @@ Item {
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
             focus: true 
-            // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(109,parent.text.replace(",","."))
+                _Modbusinfo.Write_modbus_float(89,parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -314,7 +291,7 @@ Item {
     Text{
         x: 625
         y: 560
-        text: "Activation niveau de graisse :"
+        text: "<b><u>Activation niveau de graisse :</b></u>"
         color: "black"
         font.pixelSize: 20
         horizontalAlignment: Text.AlignCenter

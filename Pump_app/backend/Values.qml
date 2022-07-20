@@ -17,6 +17,10 @@ QtObject {
     // defaut electrique à afficher dans le menu
     property string displaydefautelec: ""
 
+    // Reterminal info objects:
+    property bool display_popup: false
+
+
     //modbus value recived:
     property variant displayIhmList: ""
     property bool display_graisseOn: true
@@ -30,6 +34,12 @@ QtObject {
         _Netinfo.SystemSignal.connect(netinfofunc)
         _Modbusinfo.SystemSignal.connect(modbusinfofunc)
         _Sysinfo.SystemSignal.connect(sysinfofunc)
+        _Reterminalinfo.SystemSignal.connect(reterminalinfofunc)
+    }
+
+    function reterminalinfofunc(popup) {
+        console.log("\nreceived popup: ",popup);
+        display_popup = popup
     }
 
     function sysinfofunc(str1){
@@ -46,7 +56,6 @@ QtObject {
         // Receive list Ihm and split it to get all the values and then attribute it to the variables:
         displayIhmList = displayIhm.split(',')
         display_graisseOn = GraisseOn
-
         displayvaleur_niveau_cuve = valeur_niveau_cuve
         displaydefautelec = String(defautelec)
         display_working_p1 = marchep1
