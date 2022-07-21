@@ -76,13 +76,13 @@ ApplicationWindow {
                 y: 120
                 width: 180
                 height: 40
-                text: "<b>Reboot</b>"
+                text: "<b>Restart Application</b>"
                 font.pixelSize: 15
                 palette.buttonText: "black"
                 palette.button: "White"
                 onClicked:
                 {
-                    _Reterminalinfo.Reboot()
+                    _Reterminalinfo.Restart_app()
                 }
             }
         }

@@ -25,7 +25,7 @@ QtObject {
     property variant displayIhmList: ""
     property bool display_graisseOn: true
 
-    property int displayvaleur_niveau_cuve: 5
+    property string displayvaleur_niveau_cuve: "5"
 
     property bool display_working_p1: false
     property bool display_working_p2: false

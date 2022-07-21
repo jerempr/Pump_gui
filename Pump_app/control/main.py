@@ -47,6 +47,7 @@ if __name__ == '__main__':
         url = QUrl("../QML_UI/App_Debian.ui.qml")
     else:
         url = QUrl("../QML_UI/App.ui.qml")
+        
     
     context = engine.rootContext()
     

@@ -31,6 +31,10 @@ class Reterminalinfo(QThread):
         def __init__(self):
                 super().__init__()
                 print ("Reterminalinfo class instancied")
+                if not "Debian" in os.popen('hostnamectl').read().strip():
+                        self.distrib_Yocto = True
+                else:
+                        self.distrib_Yocto = False
                 self.btn_device = rt.get_button_device()
                 self.UsrGreenOff()
                 self.Close_popup = False
@@ -60,20 +64,42 @@ class Reterminalinfo(QThread):
                 
         @Slot()
         def Reboot(self):
-                os.system("sudo shutdown -r +1")
-                log.info("Thanks, the system will reboot now")
-                os.system("cp /home/pi/gui/Pump_gui/Pump_app/Guilogs /home/pi/gui/Pump_gui/Pump_app/Old_guilogsbeforereboot")
-                sys.exit()
+                if self.distrib_Yocto:
+                        os.system("shutdown -r +1")
+                        log.info("Thanks, the system will reboot now")
+                        os.system("cp /home/root/Pump_app/Guilogs home/root/Pump_app/Old_guilogsbeforereboot")
+                        sys.exit()
+                else:
+                        os.system("sudo shutdown -r +1")
+                        log.info("Thanks, the system will reboot now")
+                        os.system("cp /home/pi/gui/Pump_gui/Pump_app/Guilogs /home/pi/gui/Pump_gui/Pump_app/Old_guilogsbeforereboot")
+                        sys.exit()
+                
+        @Slot()
+        def Restart_app(self,timer = 3):
+                if self.distrib_Yocto:
+                        log.info("Thanks, the app will restart now")
+                        os.system("cp /home/root/Pump_app/Guilogs /home/root/Pump_app/Old_guilogsbeforerestart")
+                        os.system(f"sleep {timer} && sh /home/root/Pump_app/app_start.sh &")
+                        sys.exit()
+                else:
+                        log.info("Thanks, the app will restart now")
+                        os.system("cp /home/pi/gui/Pump_gui/Pump_app/Guilogs /home/pi/gui/Pump_gui/Pump_app/Old_guilogsbeforerestart")
+                        os.system(f"sleep {timer} && sh /home/pi/gui/Pump_gui/Pump_app/Debian_app_start.sh &")
+                        sys.exit()
                 
         def UsrGreenOn(self):
-                os.system("sudo sh -c 'echo 255 > /sys/class/leds/usr_led0/brightness'")
+                if self.distrib_Yocto:
+                        os.system("sh -c 'echo 255 > /sys/class/leds/usr_led0/brightness'")
+                else:
+                        os.system("sudo sh -c 'echo 255 > /sys/class/leds/usr_led0/brightness'")
         
         def UsrGreenOff(self):
-                os.system("sudo sh -c 'echo 0 > /sys/class/leds/usr_led0/brightness'")
+                if self.distrib_Yocto:
+                        os.system("sh -c 'echo 0 > /sys/class/leds/usr_led0/brightness'")
+                else:
+                        os.system("sudo sh -c 'echo 0 > /sys/class/leds/usr_led0/brightness'")
         
-        @Slot()
-        def  Close_popup(self):
-                self.UsrGreenOff()
                        
 
 

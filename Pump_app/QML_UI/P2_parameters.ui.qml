@@ -4,6 +4,9 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.11
 import "../backend/" as Data
 
+
+// import "../imports/QtQuick/VirtualKeyboard" 2.1
+
 // Gestion clavier:
 // import QtQuick.VirtualKeyboard 2.15
 // import "../imports/VirtualKeyboard" 2.15
@@ -22,6 +25,7 @@ Item {
     // define width and height of the app
     width: 1280
     height: 720
+
     
     // Rectangle{
     //     id: background
@@ -51,6 +55,15 @@ Item {
         height: 500
     }
 
+    Rectangle{
+        x: 0
+        y: 100
+        width: 50
+        height: 50
+        color: "red"
+        visible: txt_ihmsntb.inputMethodComposing
+    }
+
     Text{
         x: 13
         y: 190
@@ -62,13 +75,10 @@ Item {
             id: txt_ihmsntb
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[2]
+            text: Data.Values.displayIhmList[2] * !parent.inputMethodComposing
             font.pixelSize: 15
-            // activeFocusOnTab: true 
-            // color: activeFocus ? "black" : "gray " 
-            focus: true 
-            // color: "black"
-            onEditingFinished:{
+            onAccepted:{
+                console.log("automtruc là",inputMethodComposing)
                 _Modbusinfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsntb.text)
             }

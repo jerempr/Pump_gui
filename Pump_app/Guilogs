@@ -1,11 +1,10 @@
-2022-07-20 16:45:06,419 MainThread      INFO     __init__       :58       Using Qt Implementation: PySide2
+2022-07-21 11:31:30,734 MainThread      INFO     __init__       :58       Using Qt Implementation: PySide2
 qt5ct: using qt5ct plugin
-qml: 
-received popup:  true
-file:///home/pi/gui/Pump_gui/Pump_app/QML_UI/App_Debian.ui.qml:41:5: QML Popup: Binding loop detected for property "visible"
-qml: 
-received popup:  false
-Shutdown scheduled for Wed 2022-07-20 16:46:09 CEST, use 'shutdown -c' to cancel.
-2022-07-20 16:45:09,798 MainThread      INFO     ReterminalInfo :64       Thanks, the system will reboot now
-QThread: Destroyed while thread is still running
-Aborted
+qml: image parameters clicked!
+qml: push to page 2
+qml: image parameters clicked!
+qml: push to page 1
+qml: image parameters clicked!
+qml: push to page 2
+qml: image parameters clicked!
+qml: push to page 1
