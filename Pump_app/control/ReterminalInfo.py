@@ -8,6 +8,7 @@ except ImportError:
         from PyQt5.QtCore import *
 if 'PyQt5' in sys.modules:
         from PyQt5.QtCore import pyqtSignal as Signal
+        from PyQt5.QtCore import pyqtSlot as Slot
 else:
         from PySide2.QtCore import Signal, Slot
 
@@ -59,18 +60,21 @@ class Reterminalinfo(QThread):
         # close
         @Slot()
         def closeWindow(self):
-                os.system("rm /home/pi/gui/gui_test/Debian_Pompe/*/*.qmlc")
-                sys.exit()
+                if self.distrib_Yocto:
+                        os.system("rm /home/pi/gui/gui_test/Debian_Pompe/*/*.qmlc")
+                        sys.exit()
+                else:
+                        sys.exit()
                 
         @Slot()
         def Reboot(self):
                 if self.distrib_Yocto:
-                        os.system("shutdown -r +1")
+                        os.system("(sleep 3 ; reboot) &")
                         log.info("Thanks, the system will reboot now")
-                        os.system("cp /home/root/Pump_app/Guilogs home/root/Pump_app/Old_guilogsbeforereboot")
+                        os.system("cp /home/root/GUI_Demo_Custom/Guilogs home/root/GUI_Demo_Custom/Old_guilogsbeforereboot")
                         sys.exit()
                 else:
-                        os.system("sudo shutdown -r +1")
+                        os.system("(sleep 3 ; sudo reboot) &")
                         log.info("Thanks, the system will reboot now")
                         os.system("cp /home/pi/gui/Pump_gui/Pump_app/Guilogs /home/pi/gui/Pump_gui/Pump_app/Old_guilogsbeforereboot")
                         sys.exit()
@@ -79,8 +83,8 @@ class Reterminalinfo(QThread):
         def Restart_app(self,timer = 3):
                 if self.distrib_Yocto:
                         log.info("Thanks, the app will restart now")
-                        os.system("cp /home/root/Pump_app/Guilogs /home/root/Pump_app/Old_guilogsbeforerestart")
-                        os.system(f"sleep {timer} && sh /home/root/Pump_app/app_start.sh &")
+                        os.system("cp /home/root/GUI_Demo_Custom/Guilogs /home/root/GUI_Demo_Custom/Old_guilogsbeforerestart")
+                        os.system(f"sleep {timer} && sh /home/root/GUI_Demo_Custom/app_start.sh &")
                         sys.exit()
                 else:
                         log.info("Thanks, the app will restart now")

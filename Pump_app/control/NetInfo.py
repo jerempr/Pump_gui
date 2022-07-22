@@ -22,7 +22,7 @@ def Get_networksituation():
         wifi = os.popen('ip addr show wlan0 | grep "\<inet\>" | awk \'{ print $2 }\' | awk -F "/" \'{ print $1 }\'').read().strip()
 
         if wifi == '':
-                wifi = 'Not WiFi connexion'
+                wifi = 'No WiFi connexion'
 
         if eth == '' or str(eth) == '192.168.0.200':
                 eth = 'No Eth connexion'
