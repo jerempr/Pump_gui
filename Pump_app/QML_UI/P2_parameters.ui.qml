@@ -26,6 +26,8 @@ Item {
     width: 1280
     height: 720
 
+    property bool inputting: true
+
     
     // Rectangle{
     //     id: background
@@ -75,10 +77,13 @@ Item {
             id: txt_ihmsntb
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[2] * !parent.inputMethodComposing
+            text: Data.Values.displayIhmList[2] * !inputMethodComposing
             font.pixelSize: 15
+            // onDisplayTextChanged: {
+            //     inputPanelContainer.textDisplay = text
+            // }
             onAccepted:{
-                console.log("automtruc là",inputMethodComposing)
+                // console.log("automtruc là",inputMethodComposing)
                 _Modbusinfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsntb.text)
             }

@@ -3,7 +3,7 @@
 modprobe lis331dlh-i2c
 echo "changing eth0 IP work with API... "
 sudo ip a a 192.168.0.200/24 dev eth0
-echo "eth0 IP changed to to 192.168.0.200 to math API IP"
+echo "eth0 IP changed to to 192.168.0.200 to match API IP"
 #ip a
 echo "loading qt demo..."
 export QT_QPA_PLATFORM=eglfs
@@ -18,6 +18,8 @@ echo "qt demo start ok!"
 # python3 main.py
 
 python3 main.py>../Guilogs 2>&1
+
+
 echo "end of qt demo"
 rm /home/pi/gui/Pump_gui/Pump_app/*/*.qmlc
 
