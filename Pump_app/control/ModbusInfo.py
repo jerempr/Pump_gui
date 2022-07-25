@@ -86,7 +86,7 @@ class Modbusinfo(QThread):
                 self.Get_Pumps_defaults()
                 self.GraisseOn = self.Myclient.Read_addr(113,'bool')
                 self.MUTEX = False
-                sleep (.5)
+                sleep (.1)
                 self.ReadModbus()
         
         
@@ -99,6 +99,7 @@ class Modbusinfo(QThread):
                 while(True):
                         ## traitement de ces valeurs afin de les envoyer à l'Ihm:
                         # get the date of defaults if there is some
+                        
                         self.dateofdefault1 = attribute_default_pump_datetime(self.pompe1default,self.dateofdefault1)
                         self.dateofdefault2 = attribute_default_pump_datetime(self.pompe2default,self.dateofdefault2)
                         self.defautelec_message = (self.dateofdefault1 + message1)*self.pompe1default + (self.dateofdefault2 + message2)*self.pompe2default
@@ -147,6 +148,7 @@ class Modbusinfo(QThread):
                 self.pompe2default = self.Myclient.Read_addr(75.05,"bool")
                 self.pompe1default = self.Myclient.Read_addr(54.05,"bool")
                 
+                
         
         def Wait_for_mutex(self):
                 """this function allows to wait until the mutex is free. 
@@ -185,14 +187,7 @@ class Modbusinfo(QThread):
                 log.info(f"Variable de type boolean écrite à l'adresse {addr} par modbus: {obj}")
                 self.Myclient.Write_addr(addr,float(obj),"bool")
                 self.MUTEX = False
-                if addr == 54:
-                        self.pompe1default = obj
-                        if obj:
-                                self.dateofdefault1 = Get_clean_datetime()
-                if addr == 75:
-                        self.pompe2default = obj
-                        if obj:
-                                self.dateofdefault2 = Get_clean_datetime()
+                
 
 ### SANS AUTOMATE:
 
