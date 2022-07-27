@@ -19,26 +19,29 @@ from colorama import Fore
 # log.setLevel(logging.DEBUG)
 
 
-UNIT = 0x01
+# UNIT = 0x01
 
 class OperaMetrix_ModbusTCP_client():
-    def __init__(self,host='192.168.0.90'):
+    def __init__(self,host='192.168.0.90',port = 502 ):
+        
         self.host = host
-        self.client = ModbusTcpClient(self.host)
+        self.client = ModbusTcpClient(self.host,port,)
+        self.MUTEX = False
+        log.info(self.client.port)
 
     def connect(self):
-        # --------------------------------------------------------------------------- #
-        # Configuration et connexion au client
-        # --------------------------------------------------------------------------- #
+        """
+        Connect to client
+        """
         if self.client.connect():
             log.debug("Connected to the client")
         else:
             log.debug("CONNEXION ERROR")
 
     def close(self): 
-        # --------------------------------------------------------------------------- #
-        # Close client
-        # --------------------------------------------------------------------------- #
+        """
+        Close client
+        """
         if self.client.close():
             log.debug("disconnected from client")   
 
@@ -160,10 +163,10 @@ class OperaMetrix_ModbusTCP_client():
             b = int(addr)
             decimales = addr%b
             towrite = [self.Read_addr(b,Type,False),self.Read_addr(b+0.05,Type,False),self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.35,Type,False)]
-            # logging.info(f"towrite: {towrite}")
+            logging.info(f"towrite: {towrite}")
             towrite[round(decimales*20)] = object
             builder.add_bits(towrite)
-            # logging.info(f"towrite: {towrite}")
+            logging.info(f"towrite: {towrite}")
         elif Type == '16uint':
             b = addr%int(addr)
             if b == 0:

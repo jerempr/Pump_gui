@@ -86,7 +86,7 @@ class Modbusinfo(QThread):
                 self.Get_Pumps_defaults()
                 self.GraisseOn = self.Myclient.Read_addr(113,'bool')
                 self.MUTEX = False
-                sleep (.1)
+                sleep (1)
                 self.ReadModbus()
         
         
@@ -155,7 +155,7 @@ class Modbusinfo(QThread):
                 When he is, he is then put to True and the code can continue
                 """
                 if self.MUTEX:
-                        sleep(1)
+                        sleep(.5)
                         return self.Wait_for_mutex
                 else:
                         self.MUTEX = True
@@ -185,7 +185,7 @@ class Modbusinfo(QThread):
                 """
                 self.Wait_for_mutex()
                 log.info(f"Variable de type boolean écrite à l'adresse {addr} par modbus: {obj}")
-                self.Myclient.Write_addr(addr,float(obj),"bool")
+                self.Myclient.Write_addr(addr,bool(obj),"bool")
                 self.MUTEX = False
                 
 
