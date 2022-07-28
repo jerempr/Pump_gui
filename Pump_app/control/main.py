@@ -21,10 +21,9 @@ else:
 	print("this app use pyside2")
 
 from NetInfo import Netinfo
-from ModbusInfo import Modbusinfo
 from SysInfo import Sysinfo
 from ReterminalInfo import Reterminalinfo
- 
+from OpcuaInfo import OperaMetrix_OPCUA_client, OPCUAinfo
 
 import asyncio
 import asyncqt
@@ -54,29 +53,33 @@ if __name__ == '__main__':
     # Récup-re les classes créées dans les dépendances:
     sysinfo = Sysinfo()
     netinfo = Netinfo()
-    modinfo = Modbusinfo()
     reterminalinfo = Reterminalinfo()
+    opcuainfo = OPCUAinfo()
     
-    
+    #classe de récupération de variable opc-ua
+    OPCclient = OperaMetrix_OPCUA_client()
     # Add close async interruption:
     # création de la boucle qui va permettre l'interruption de fermeture d'application
     loop = asyncqt.QEventLoop(app)
     asyncio.set_event_loop(loop)
-    
-
+    # création de la boucle de lecture opc-ua
+    opc_loop = asyncio.get_event_loop()
     # Rends les composants utilisables pour les .qml
     context.setContextProperty("_Sysinfo", sysinfo)
     context.setContextProperty("_Netinfo", netinfo)
-    context.setContextProperty("_Modbusinfo", modinfo)
     context.setContextProperty("_Reterminalinfo", reterminalinfo)
+    context.setContextProperty("_OPCUAinfo", opcuainfo)
     
     sysinfo.start()
     netinfo.start()
-    modinfo.start()
+    
     
     engine.load(url)
     #On lance la boucle d'interruption puis l'application
     with loop:
             loop.run_until_complete(reterminalinfo.btn_coroutine())
+    with opc_loop:
+            opc_loop.run_until_complete(OPCclient.run())
+
     app.exec_()
     

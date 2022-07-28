@@ -52,7 +52,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             console.info("image pump a clicked!")
-                            _Modbusinfo.Write_modbus_boolean(54,1)
+                            _OPCUAinfo.Write_modbus_boolean(54,1)
                         }
                     }
                     Text {
@@ -88,7 +88,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             console.info("image pump b  clicked!")
-                            _Modbusinfo.Write_modbus_boolean(75,1)
+                            _OPCUAinfo.Write_modbus_boolean(75,1)
                         }
                     }
                     Text {

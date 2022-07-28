@@ -84,7 +84,7 @@ Item {
             // }
             onAccepted:{
                 // console.log("automtruc là",inputMethodComposing)
-                _Modbusinfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsntb.text)
             }
         }
@@ -108,7 +108,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(97,txt_ihmsnb.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(97,txt_ihmsnb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsnb.text)
             }
         }
@@ -132,7 +132,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(99,txt_ihmsnh.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(99,txt_ihmsnh.text.replace(",","."))
                 console.info("Written: ",txt_ihmsnh.text)
             }
         }
@@ -156,7 +156,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(103,txt_ihmsnth.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(103,txt_ihmsnth.text.replace(",","."))
                 console.info("Written: ",txt_ihmsnth.text)
             }
         }
@@ -180,7 +180,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(105,txt_ihmvrvnh.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(105,txt_ihmvrvnh.text.replace(",","."))
                 console.info("Written: ",txt_ihmvrvnh.text)
             }
         }
@@ -204,7 +204,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(107,txt_ihmvrvnth.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(107,txt_ihmvrvnth.text.replace(",","."))
                 console.info("Written: ",txt_ihmvrvnth.text)
             }
         }
@@ -228,7 +228,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(109,txt_ihmecart.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(109,txt_ihmecart.text.replace(",","."))
                 console.info("Written: ",txt_ihmecart.text)
             }
         }
@@ -251,7 +251,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(111,parent.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(111,parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -275,7 +275,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(91,parent.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(91,parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -297,7 +297,7 @@ Item {
             // color: activeFocus ? "black" : "gray " 
             focus: true 
             onEditingFinished:{
-                _Modbusinfo.Write_modbus_float(89,parent.text.replace(",","."))
+                _OPCUAinfo.Write_modbus_float(89,parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -321,7 +321,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     console.info("image graisse on clicked!")
-                    _Modbusinfo.Write_modbus_boolean(113,0)
+                    _OPCUAinfo.Write_modbus_boolean(113,0)
                 }
             }
         }
@@ -336,7 +336,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     console.info("image graisse on clicked!")
-                    _Modbusinfo.Write_modbus_boolean(113,1)
+                    _OPCUAinfo.Write_modbus_boolean(113,1)
                 }
             }
         }

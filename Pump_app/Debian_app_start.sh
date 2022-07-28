@@ -19,7 +19,7 @@ echo "qt demo start ok!"
 
 # python3 main.py
 
-python3 main.py>../Guilogs 2>&1
+python3.9 main.py>../Guilogs 2>&1
 
 
 echo "end of qt demo"
