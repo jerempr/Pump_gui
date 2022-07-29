@@ -5,8 +5,8 @@ import sys
 from logger import *
 from SysInfo import Get_clean_datetime
 
-
-
+from asyncua import Node
+from colorama import Fore
 
 try:
         from PySide2.QtCore import *
@@ -27,7 +27,6 @@ def attribute_default_pump_datetime(bin,date):
         return date
 
 
-import asyncio
 
 
 
@@ -39,20 +38,19 @@ class Opcuainfo(QThread):
                 log.info("Initialisation classe OPCUAinfo")
                 
                 
-                self.SystemSignal.emit("",False,"5.1","",True,False)
+                # self.SystemSignal.emit("",False,"5.1","",True,False)
 
         
         def first_call(self):
-                """à appe
-                ller pour avoir les valeurs au lancement de l'application (sans interrputions"""
+                """à appeller pour avoir les valeurs au lancement de l'application (sans interrputions"""
                 log.info("First call of OPCUAinfo!!")
-                # self.SystemSignal.emit("",False,"5.1","",True,False)
+                self.SystemSignal.emit("",False,"5.1","",True,False)
                 
         
-        # def datachange_notification(self, node: Node, val, data):
-        #     """Callback for asyncua Subscription"""
-        #     log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
-        #     self.SystemSignal.emit("",False,"5.1","",True,False)
+        def datachange_notification(self, node: Node, val, data):
+            """Callback for asyncua Subscription"""
+            log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
+            self.SystemSignal.emit("",False,"5.1","",True,False)
 
         @Slot(int,float)
         def Write_modbus_float(self,addr,obj):

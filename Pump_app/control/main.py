@@ -34,8 +34,8 @@ import asyncqt
 import threading
 
 
-def Launch_OPCUA():
-    Myclient = OperaMetrix_OPCUA_client()
+def Launch_OPCUA(handler):
+    Myclient = OperaMetrix_OPCUA_client(handler)
     opcloop = asyncio.new_event_loop()
     asyncio.set_event_loop(opcloop)
     opcloop.run_until_complete(Myclient.run())
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     engine.load(url)
     log.info("Will use asyncio, begin to xreate the loop...")
     #On lance la boucle d'interruption puis l'application
-    T_opcua = threading.Thread(target=Launch_OPCUA)
+    T_opcua = threading.Thread(target=Launch_OPCUA, args = (opcuainfo,))
     T_opcua.setDaemon(True)
     T_opcua.start()
     # Myclient = 

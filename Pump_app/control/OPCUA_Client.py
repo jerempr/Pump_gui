@@ -30,12 +30,12 @@ class SubscriptionHandler:
         log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
 
 class OperaMetrix_OPCUA_client():
-    def __init__(self,url = 'opc.tcp://localhost:4840/freeopcua/server/',uri = "http://edge-proxy.operametrix.fr"):
+    def __init__(self,handler,url = 'opc.tcp://localhost:4840/freeopcua/server/',uri = "http://edge-proxy.operametrix.fr"):
         log.info("trying to use OPCUA communication...")
         self.url = url
         self.uri = uri
         self.nodes = []
-        self.handler = SubscriptionHandler()
+        self.handler = handler
         self.object = "API_local"
         self.client = Client(url=self.url)
         log.info("we are using OPCUA communication")
