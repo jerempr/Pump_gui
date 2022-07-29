@@ -31,12 +31,12 @@ def attribute_default_pump_datetime(bin,date):
 
 
 class Opcuainfo(QThread):
-        SystemSignal = Signal(str,bool,str,str,bool,bool)
+        SystemSignal = Signal(str,str)
     
         def __init__(self):
                 super().__init__()
                 log.info("Initialisation classe OPCUAinfo")
-                
+                # self.first_call()
                 
                 # self.SystemSignal.emit("",False,"5.1","",True,False)
 
@@ -44,14 +44,15 @@ class Opcuainfo(QThread):
         def first_call(self):
                 """à appeller pour avoir les valeurs au lancement de l'application (sans interrputions"""
                 log.info("First call of OPCUAinfo!!")
-                self.SystemSignal.emit("nan,"*10,False,"5.1","",True,False)
+                # self.SystemSignal.emit("nan,"*120)
                 
         
         def datachange_notification(self, node: Node, val, data):
             """Callback for asyncua Subscription"""
-            log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
-        
-            self.SystemSignal.emit("",False,"5.1","",True,False)
+        #     log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
+            strid = str(node.nodeid.Identifier).replace("API_local:","")
+        #     log.info(f"strid: {strid}")
+            self.SystemSignal.emit(f"{strid}",f"{val}")
 
         @Slot(int,float)
         def Write_modbus_float(self,addr,obj):

@@ -4,54 +4,54 @@
 # Volume_Vidange_Jour_Prec_m3
 # Volume_Remplissage_Total_m3
 # Volume_Vidange_Total_m3
-Reserve_Volume_1
-Reserve_Volume_2
-Reserve_Volume_3
-Reserve_Volume_4
-Debit_Remplissage_moyen_Jour
-Debit_Remplissage_moyen_Jour_Prec
-Debit_Vidange_moyen_Jour
-Debit_Vidange_moyen_Jour_Prec
-Reserve_Debit_1
-Reserve_Debit_2
-Reserve_Debit_3
-Reserve_Debit_4
-Reserve_Debit_5
-Reserve_Debit_6
-Pompe_1_Temps_de_Fonctionnement_Jour
-Pompe_1_Temps_de_Fonctionnement_Jour_Prec
-Pompe_1_Temps_de_Fonctionnement_Total
-Pompe_1_Nombre_de_démarrages_Heure
-Pompe_1_Nombre_de_démarrages_Jour
-Pompe_1_Nombre_de_démarrages_Jour_Prec
-Pompe_1_Volume_Vidange_Total_m3
+# Reserve_Volume_1
+# Reserve_Volume_2
+# Reserve_Volume_3
+# Reserve_Volume_4
+# Debit_Remplissage_moyen_Jour
+# Debit_Remplissage_moyen_Jour_Prec
+# Debit_Vidange_moyen_Jour
+# Debit_Vidange_moyen_Jour_Prec
+# Reserve_Debit_1
+# Reserve_Debit_2
+# Reserve_Debit_3
+# Reserve_Debit_4
+# Reserve_Debit_5
+# Reserve_Debit_6
+# Pompe_1_Temps_de_Fonctionnement_Jour
+# Pompe_1_Temps_de_Fonctionnement_Jour_Prec
+# Pompe_1_Temps_de_Fonctionnement_Total
+# Pompe_1_Nombre_de_démarrages_Heure
+# Pompe_1_Nombre_de_démarrages_Jour
+# Pompe_1_Nombre_de_démarrages_Jour_Prec
+# Pompe_1_Volume_Vidange_Total_m3
 Retour_Marche_Pompe_1
 Defaut_Elec_Pompe_1
 Alarmes_Nombres_de_Démarrages_PompeA
-Reserve_Pompe_1_-_1
-Reserve_Pompe_1_-_2
-Reserve_Pompe_1_-_3
-Pompe_2_Temps_de_Fonctionnement_Jour
-Pompe_2_Temps_de_Fonctionnement_Jour_Prec
-Pompe_2_Temps_de_Fonctionnement_Total
-Pompe_2_Nombre_de_démarrages_Heure
-Pompe_2_Nombre_de_démarrages_Jour
-Pompe_2_Nombre_de_démarrages_Jour_Prec
-Pompe_2_Volume_Vidange_Total_m3
+# Reserve_Pompe_1_-_1
+# Reserve_Pompe_1_-_2
+# Reserve_Pompe_1_-_3
+# Pompe_2_Temps_de_Fonctionnement_Jour
+# Pompe_2_Temps_de_Fonctionnement_Jour_Prec
+# Pompe_2_Temps_de_Fonctionnement_Total
+# Pompe_2_Nombre_de_démarrages_Heure
+# Pompe_2_Nombre_de_démarrages_Jour
+# Pompe_2_Nombre_de_démarrages_Jour_Prec
+# Pompe_2_Volume_Vidange_Total_m3
 Retour_Marche_Pompe_2
 Defaut_Elec_Pompe_2
 Alarmes_Nombres_de_Démarrages_PompeB
-Reserve_Pompe_2_-_1
-Reserve_Pompe_2_-_2
-Reserve_Pompe_2_-_3
+# Reserve_Pompe_2_-_1
+# Reserve_Pompe_2_-_2
+# Reserve_Pompe_2_-_3
 Acquittement
-Seuil_Niveau_Tres_Bas
-Seuil_Niveau_Tres_Haut
+# Seuil_Niveau_Tres_Bas
+# Seuil_Niveau_Tres_Haut
 Valeur_Niveau_cuve
 Valeur_Mini_Niveau
 Valeur_Maxi_Niveau
-Seuil_Niveau_Bas
-Seuil_Niveau_Haut
+# Seuil_Niveau_Bas
+# Seuil_Niveau_Haut
 Ihm_Seuil_Niveau_Bas
 Ihm_Seuil_Niveau_Haut
 Ihm_Seuil_Niveau_Tres_Bas

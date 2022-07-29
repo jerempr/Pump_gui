@@ -77,13 +77,9 @@ Item {
             id: txt_ihmsntb
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[2] * !inputMethodComposing
+            text: Data.Values.display_Ihm_Seuil_Niveau_Tres_Bas
             font.pixelSize: 15
-            // onDisplayTextChanged: {
-            //     inputPanelContainer.textDisplay = text
-            // }
             onAccepted:{
-                // console.log("automtruc là",inputMethodComposing)
                 _Opcuainfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsntb.text)
             }
@@ -101,7 +97,7 @@ Item {
             id: txt_ihmsnb
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[0]
+            text: Data.Values.display_Ihm_Seuil_Niveau_Bas
             font.pixelSize: 15
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -125,7 +121,7 @@ Item {
             id: txt_ihmsnh
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[1]
+            text: Data.Values.display_Ihm_Seuil_Niveau_Haut
             font.pixelSize: 15
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -149,7 +145,7 @@ Item {
             id: txt_ihmsnth
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[3]
+            text: Data.Values.display_Ihm_Seuil_Niveau_Tres_Haut
             font.pixelSize: 15
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -173,7 +169,7 @@ Item {
             id: txt_ihmvrvnh
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[4]
+            text: Data.Values.display_Ihm_Volume_Niveau_Haut
             font.pixelSize: 15
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -197,12 +193,9 @@ Item {
             id: txt_ihmvrvnth
             x: 350
             y: -5
-            text: Data.Values.displayIhmList[5]
+            text: Data.Values.display_Ihm_Volume_Niveau_Tres_Haut
             font.pixelSize: 15
-            // activeFocusOnTab: true 
-            // color: activeFocus ? "black" : "gray " 
             focus: true 
-            // color: "black"
             onEditingFinished:{
                 _Opcuainfo.Write_modbus_float(107,txt_ihmvrvnth.text.replace(",","."))
                 console.info("Written: ",txt_ihmvrvnth.text)
@@ -221,7 +214,7 @@ Item {
             id: txt_ihmecart
             x: 400
             y: -5
-            text: Data.Values.displayIhmList[6]
+            text: Data.Values.display_Temps_De_Décalage
             font.pixelSize: 15
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -244,7 +237,7 @@ Item {
         TextField{
             x: 400
             y: -5
-            text: Data.Values.displayIhmList[7]
+            text: Data.Values.display_Offset_Anneau_Graisse
             font.pixelSize: 15
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -268,7 +261,7 @@ Item {
         TextField{
             x: 400
             y: -5
-            text: Data.Values.displayIhmList[9]
+            text: Data.Values.display_Valeur_Maxi_Niveau
             font.pixelSize: 20
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -291,7 +284,7 @@ Item {
         TextField{
             x: 400
             y: -5
-            text: Data.Values.displayIhmList[8]
+            text: Data.Values.display_Valeur_Mini_Niveau
             font.pixelSize: 20
             // activeFocusOnTab: true 
             // color: activeFocus ? "black" : "gray " 
@@ -312,7 +305,7 @@ Item {
         horizontalAlignment: Text.AlignCenter
         Image {
             source: "../images/stop.png"
-            visible: Data.Values.display_graisseOn
+            visible: Data.Values.display_Anneau_Graisse_ON
             x: 350
             y: -5
             width: 150
@@ -327,7 +320,7 @@ Item {
         }
         Image {
             source: "../images/start.png"
-            visible: !Data.Values.display_graisseOn
+            visible: !Data.Values.display_Anneau_Graisse_ON
             x: 350
             y: -5
             width: 100

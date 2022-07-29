@@ -30,6 +30,29 @@ QtObject {
     property bool display_working_p1: false
     property bool display_working_p2: false
 
+    property string display_Ihm_Seuil_Niveau_Bas : "N/A"
+
+    property string display_Ihm_Seuil_Niveau_Haut : "N/A"
+
+    property string display_Ihm_Seuil_Niveau_Tres_Bas : "N/A"
+
+    property string display_Ihm_Seuil_Niveau_Tres_Haut : "N/A"
+
+    property string display_Ihm_Volume_Niveau_Haut : "N/A"
+
+    property string display_Ihm_Volume_Niveau_Tres_Haut : "N/A"
+
+    property string display_Temps_De_Décalage : "N/A"
+
+    property string display_Offset_Anneau_Graisse : "N/A"
+
+    property bool display_Anneau_Graisse_ON : true
+
+    property string display_Valeur_Mini_Niveau : "N/A"
+
+    property string display_Valeur_Maxi_Niveau : "N/A"
+
+
     Component.onCompleted: {
         _Netinfo.SystemSignal.connect(netinfofunc)
         _Opcuainfo.SystemSignal.connect(opcuainfofunc)
@@ -52,19 +75,62 @@ QtObject {
         displayethernet = String(str5)
         displaywifi = String(str6)
     }
-    function opcuainfofunc(displayIhm,GraisseOn,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
-        // console.log("ça marche 3");
-        // Receive list Ihm and split it to get all the values and then attribute it to the variables:
-        if (displayIhm != displayIhmList){
-            displayIhmList = displayIhm.split(',')
-        }
+    // function opcuainfofunc(displayIhm,GraisseOn,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
+    //     // console.log("ça marche 3");
+    //     // Receive list Ihm and split it to get all the values and then attribute it to the variables:
+    //     if (displayIhm != displayIhmList){
+    //         displayIhmList = displayIhm.split(',')
+    //     }
         
             
-        display_graisseOn = GraisseOn
-        displayvaleur_niveau_cuve = valeur_niveau_cuve
-        displaydefautelec = String(defautelec)
-        display_working_p1 = marchep1
-        display_working_p2 = marchep2
+    //     display_graisseOn = GraisseOn
+    //     displayvaleur_niveau_cuve = valeur_niveau_cuve
+    //     displaydefautelec = String(defautelec)
+    //     display_working_p1 = marchep1
+    //     display_working_p2 = marchep2
+    // }
+
+    function opcuainfofunc(id,val) {
+        // Receive list Ihm and split it to get all the values and then attribute it to the variables:
+        switch (id){
+            case "Ihm_Seuil_Niveau_Bas":
+                display_Ihm_Seuil_Niveau_Bas = val
+                break;
+            case "Ihm_Seuil_Niveau_Haut":
+                display_Ihm_Seuil_Niveau_Haut = val
+                break;
+            case "Ihm_Seuil_Niveau_Tres_Bas":
+                display_Ihm_Seuil_Niveau_Tres_Bas = val
+                break;
+            case "Ihm_Seuil_Niveau_Tres_Haut":
+                display_Ihm_Seuil_Niveau_Tres_Haut = val
+                break;
+            case "Ihm_Volume_Niveau_Haut":
+                display_Ihm_Volume_Niveau_Haut = val
+                break;
+            case "Ihm_Volume_Niveau_Tres_Haut":
+                display_Ihm_Volume_Niveau_Tres_Haut = val
+                break;
+            case "Temps_De_Décalage":
+                display_Temps_De_Décalage = val
+                break;
+            case "Offset_Anneau_Graisse":
+                display_Offset_Anneau_Graisse = val
+                break;
+            case "Anneau_Graisse_ON":
+                display_Anneau_Graisse_ON = val
+                break;
+            case "Valeur_Mini_Niveau":
+                display_Valeur_Mini_Niveau = val
+                break;
+            case "Valeur_Maxi_Niveau":
+                display_Valeur_Maxi_Niveau = val
+                break;
+            // default:
+            //     console.log("id not found in your switchcase: ", id);
+            //     break;
+            
+        }
     }
 
 }
