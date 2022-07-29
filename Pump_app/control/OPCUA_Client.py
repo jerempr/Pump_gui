@@ -38,6 +38,9 @@ class OperaMetrix_OPCUA_client():
         self.handler = handler
         self.object = "API_local"
         self.client = Client(url=self.url)
+        self.My_addresses = []
+        self._get_addr_list()
+        
         log.info("we are using OPCUA communication")
 
         
@@ -54,7 +57,8 @@ class OperaMetrix_OPCUA_client():
     
     async def _subscribe(self, name:str):
         self.subscription = await self.client.create_subscription(500, self.handler)
-        self.nodes.append(self.client.get_node(ua.NodeId(f"{self.object}:{name}",self.idx)))
+        for addr_name in self.My_addresses:
+            self.nodes.append(self.client.get_node(ua.NodeId(f"{self.object}:{addr_name}",self.idx)))
         print (f"Nodes: {self.nodes}")
     
     async def _keepalive(self):
@@ -66,7 +70,12 @@ class OperaMetrix_OPCUA_client():
         # self.idx = 2
         log.info(f"INDEX: {self.idx}")
         
-    
+    def _get_addr_list(self):
+        file = open('addr_toread.yaml', 'r')
+        for line in file:
+            if line[0] != "#":
+                self.My_addresses.append(line.strip('\n'))
+            
     
     def _close(self):
         self.client.disconnect()

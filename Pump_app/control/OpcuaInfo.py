@@ -44,12 +44,13 @@ class Opcuainfo(QThread):
         def first_call(self):
                 """à appeller pour avoir les valeurs au lancement de l'application (sans interrputions"""
                 log.info("First call of OPCUAinfo!!")
-                self.SystemSignal.emit("",False,"5.1","",True,False)
+                self.SystemSignal.emit("nan,"*10,False,"5.1","",True,False)
                 
         
         def datachange_notification(self, node: Node, val, data):
             """Callback for asyncua Subscription"""
             log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
+        
             self.SystemSignal.emit("",False,"5.1","",True,False)
 
         @Slot(int,float)
