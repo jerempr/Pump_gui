@@ -31,10 +31,12 @@ QtObject {
     property bool display_working_p2: false
 
     Component.onCompleted: {
+        console.log(_OPCUAinfo.Write_modbus_float())
+        console.log(_Netinfo.SystemSignal)
         _Netinfo.SystemSignal.connect(netinfofunc)
-        _OPCUAinfo.SystemSignal.connect(opcuainfofunc)
         _Sysinfo.SystemSignal.connect(sysinfofunc)
         _Reterminalinfo.SystemSignal.connect(reterminalinfofunc)
+        _OPCUAinfo.SystemSignal.connect(opcuainfofunc)
     }
 
     function reterminalinfofunc(popup) {

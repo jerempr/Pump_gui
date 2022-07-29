@@ -15,6 +15,7 @@ else:
 
 from logger import log
 
+import asyncio
 
 import asyncqt
 import seeed_python_reterminal.core as rt
@@ -51,10 +52,11 @@ class Reterminalinfo(QThread):
                                 if buttonEvent.name == rt_btn.ButtonName.O and buttonEvent.value == 1:
                                         self.UsrGreenOn()
                                         self.SystemSignal.emit(True)
-                                        # self.sleep(3)
+                                        await asyncio.sleep(2)
                                 else:
                                         self.SystemSignal.emit(False)
                                         self.UsrGreenOff()
+                                        await asyncio.sleep(2)
                                         
 
         # close

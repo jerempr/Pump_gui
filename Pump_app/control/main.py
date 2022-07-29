@@ -2,33 +2,36 @@
 import sys
 import os
 
+from logger import *
 
 
-try:
-	import PySide2.QtQml
-except ImportError:
-	import PyQt5.QtQml
+# try:
+#     import PySide2.QtQml
+# except ImportError:
+# 	import PyQt5.QtQml
 if 'PyQt5' in sys.modules:
 	from PyQt5.QtQml import QQmlApplicationEngine
 	from PyQt5.QtWidgets import *
 	from PyQt5.QtCore import *
-	print("this app use pyqt5")
+	log.info("this app use pyqt5")
 else:
 	from PySide2.QtQml import QQmlApplicationEngine
 	from PySide2.QtWidgets import *
 	from PySide2.QtQuick import *
 	from PySide2.QtCore import *
-	print("this app use pyside2")
+	log.info("this app use pyside2")
 
 from NetInfo import Netinfo
 from SysInfo import Sysinfo
 from ReterminalInfo import Reterminalinfo
-from OpcuaInfo import OperaMetrix_OPCUA_client, OPCUAinfo
+from OpcuaInfo import OPCUAinfo
+from OPCUA_client import OperaMetrix_OPCUA_client
 
 import asyncio
 import asyncqt
 
-
+      
+        
 
 # launch the app
 if __name__ == '__main__':
@@ -53,8 +56,9 @@ if __name__ == '__main__':
     # Récup-re les classes créées dans les dépendances:
     sysinfo = Sysinfo()
     netinfo = Netinfo()
-    reterminalinfo = Reterminalinfo()
     opcuainfo = OPCUAinfo()
+    reterminalinfo = Reterminalinfo()
+    
     
     #classe de récupération de variable opc-ua
     OPCclient = OperaMetrix_OPCUA_client()
@@ -62,24 +66,27 @@ if __name__ == '__main__':
     # création de la boucle qui va permettre l'interruption de fermeture d'application
     loop = asyncqt.QEventLoop(app)
     asyncio.set_event_loop(loop)
-    # création de la boucle de lecture opc-ua
-    opc_loop = asyncio.get_event_loop()
+
     # Rends les composants utilisables pour les .qml
     context.setContextProperty("_Sysinfo", sysinfo)
+    context.setContextProperty("_OPCUAinfo", opcuainfo)
     context.setContextProperty("_Netinfo", netinfo)
     context.setContextProperty("_Reterminalinfo", reterminalinfo)
-    context.setContextProperty("_OPCUAinfo", opcuainfo)
     
+    opcuainfo.first_call()
     sysinfo.start()
     netinfo.start()
     
-    
     engine.load(url)
+    
+    log.info("Avant lancement des boucles!")
     #On lance la boucle d'interruption puis l'application
-    with loop:
-            loop.run_until_complete(reterminalinfo.btn_coroutine())
-    with opc_loop:
-            opc_loop.run_until_complete(OPCclient.run())
-
+    loop = asyncio.get_event_loop()
+    # loop.create_task(reterminalinfo.btn_coroutine())
+    loop.create_task(OPCclient.run())
+    loop.run_forever()
+    log.info("Apres lancement des boucles!")
     app.exec_()
     
+
+        

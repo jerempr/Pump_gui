@@ -1,6 +1,6 @@
 import asyncio
 import sys
-sys.path.insert(0, "..")
+# sys.path.insert(0, "..")
 from asyncua import Client, Node, ua
 from colorama import Fore
 from logger import *
@@ -54,10 +54,10 @@ class OperaMetrix_OPCUA_client():
         self.client.disconnect()
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     
-    Myclient = OperaMetrix_OPCUA_client()
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(Myclient.run())
-    print(Fore.GREEN+"on en sors!"+Fore.RESET)
-    loop.close()
+#     Myclient = OperaMetrix_OPCUA_client()
+#     loop = asyncio.get_event_loop()
+#     loop.run_until_complete(Myclient.run())
+#     print(Fore.GREEN+"on en sors!"+Fore.RESET)
+#     loop.close()
