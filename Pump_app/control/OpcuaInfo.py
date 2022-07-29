@@ -5,7 +5,6 @@ import sys
 from logger import *
 from SysInfo import Get_clean_datetime
 
-from OPCUA_Communication import OperaMetrix_OPCUA_client
 
 
 
@@ -40,7 +39,7 @@ class Opcuainfo(QThread):
                 log.info("Initialisation classe OPCUAinfo")
                 
                 
-                # self.SystemSignal.emit("",False,"5.1","",True,False)
+                self.SystemSignal.emit("",False,"5.1","",True,False)
 
         
         def first_call(self):

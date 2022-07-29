@@ -25,12 +25,12 @@ from OpcuaInfo import Opcuainfo
 from SysInfo import Sysinfo
 from ReterminalInfo import Reterminalinfo
  
-from OPCUA_Communication import OperaMetrix_OPCUA_client
+from OPCUA_Client import OperaMetrix_OPCUA_client
  
 
 import asyncio
 import asyncqt
-from concurrent.futures import ProcessPoolExecutor
+
 import threading
 
 
