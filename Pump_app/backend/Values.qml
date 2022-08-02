@@ -30,6 +30,8 @@ QtObject {
     property bool display_working_p1: false
     property bool display_working_p2: false
 
+    // OPCUA values received
+
     property string display_Ihm_Seuil_Niveau_Bas : "N/A"
 
     property string display_Ihm_Seuil_Niveau_Haut : "N/A"
@@ -51,6 +53,16 @@ QtObject {
     property string display_Valeur_Mini_Niveau : "N/A"
 
     property string display_Valeur_Maxi_Niveau : "N/A"
+
+    property string display_Valeur_Niveau_cuve : "5"
+
+    property bool display_Retour_Marche_Pompe_1 : false
+
+    property string display_Defaut_Elec_Pompe_1 : ""
+
+    property bool display_Retour_Marche_Pompe_2 : false
+
+    property string display_Defaut_Elec_Pompe_2 : ""
 
 
     Component.onCompleted: {
@@ -92,6 +104,13 @@ QtObject {
 
     function opcuainfofunc(id,val) {
         // Receive list Ihm and split it to get all the values and then attribute it to the variables:
+        // console.log("µTest variable: ",""+Boolean("true")*"True!");
+        if (val == "True"){
+            val = true
+        }
+        if (val == "False"){
+            val = false
+        }
         switch (id){
             case "Ihm_Seuil_Niveau_Bas":
                 display_Ihm_Seuil_Niveau_Bas = val
@@ -125,6 +144,21 @@ QtObject {
                 break;
             case "Valeur_Maxi_Niveau":
                 display_Valeur_Maxi_Niveau = val
+                break;
+            case "Valeur_Niveau_cuve":
+                display_Valeur_Niveau_cuve = val
+                break;
+            case "Retour_Marche_Pompe_1":
+                display_Retour_Marche_Pompe_1 = val
+                break;
+            case "Defaut_Elec_Pompe_1":
+                display_Defaut_Elec_Pompe_1 = val
+                break;
+            case "Retour_Marche_Pompe_2":
+                display_Retour_Marche_Pompe_2 = val
+                break;
+            case "Defaut_Elec_Pompe_2":
+                display_Defaut_Elec_Pompe_2 = val
                 break;
             // default:
             //     console.log("id not found in your switchcase: ", id);

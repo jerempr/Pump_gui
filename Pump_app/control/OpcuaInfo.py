@@ -48,11 +48,19 @@ class Opcuainfo(QThread):
                 
         
         def datachange_notification(self, node: Node, val, data):
-            """Callback for asyncua Subscription"""
-        #     log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
-            strid = str(node.nodeid.Identifier).replace("API_local:","")
-        #     log.info(f"strid: {strid}")
-            self.SystemSignal.emit(f"{strid}",f"{val}")
+                """Callback for asyncua Subscription"""
+                # log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} "+Fore.RESET)
+                strid = str(node.nodeid.Identifier).replace("API_local:","")
+                # check if we need to send a problem message:
+                if "Defaut_Elec_Pompe" in strid:
+                        val = "" + bool(val) * f":<b>  - Défaut sur la pompe {strid[-1]} -  </b>"
+                elif type(val) == float:
+                        val = round(val,2)
+                # elif str(val) == "True" or str(val) == "False":
+                #         val = str(val).lower()
+                #         log.info("Changement d'écriture des booléens!")
+                # log.info(f"strid: {strid}")
+                self.SystemSignal.emit(f"{strid}",f"{val}")
 
         @Slot(int,float)
         def Write_modbus_float(self,addr,obj):

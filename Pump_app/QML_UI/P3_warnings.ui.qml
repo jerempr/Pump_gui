@@ -32,7 +32,7 @@ Item {
         color: "green"
         font.pixelSize: 20
         horizontalAlignment: Text.AlignCenter
-        visible : !(Data.Values.displaydefautelec.includes("pompe 2")) * !(Data.Values.displaydefautelec.includes("pompe 1"))
+        visible : !(Data.Values.display_Defaut_Elec_Pompe_2.includes("pompe 2")) * !(Data.Values.display_Defaut_Elec_Pompe_1.includes("pompe 1"))
     }
 
 
@@ -43,11 +43,11 @@ Item {
         color: "red"
         font.pixelSize: 20
         horizontalAlignment: Text.AlignCenter
-        visible : (Data.Values.displaydefautelec.includes("pompe 1"))
+        visible : (Data.Values.display_Defaut_Elec_Pompe_1.includes("pompe 1"))
         Button {
             x: 5
             y: 100
-            visible : (Data.Values.displaydefautelec.includes("pompe 1"))
+            visible : (Data.Values.display_Defaut_Elec_Pompe_1.includes("pompe 1"))
             width: 300
             height: 100
             text: "Remettre Pompe 1 en marche"
@@ -69,11 +69,11 @@ Item {
         color: "red"
         font.pixelSize: 20
         horizontalAlignment: Text.AlignCenter
-        visible : (Data.Values.displaydefautelec.includes("pompe 2"))
+        visible : (Data.Values.display_Defaut_Elec_Pompe_2.includes("pompe 2"))
         Button {
             x: 5
             y: 100
-            visible : (Data.Values.displaydefautelec.includes("pompe 2"))
+            visible : (Data.Values.display_Defaut_Elec_Pompe_2.includes("pompe 2"))
             width: 300
             height: 100
             text: "Remettre Pompe 2 en marche"

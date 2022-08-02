@@ -19,7 +19,7 @@ Item {
         color: "#ebebeb"
         Text{
             anchors.fill: parent
-            text: Data.Values.displaydefautelec
+            text: Data.Values.display_Defaut_Elec_Pompe_1 + Data.Values.display_Defaut_Elec_Pompe_2
             color: "red"
             font.pixelSize: 11
             horizontalAlignment: Text.AlignCenter

@@ -1,7 +1,3 @@
-from optparse import Values
-from pymodbus3.client.sync import ModbusTcpClient
-from pymodbus3.constants import Endian
-from pymodbus3.payload import BinaryPayloadDecoder, BinaryPayloadBuilder
 from logger import *
 from colorama import Fore
 

@@ -37,7 +37,7 @@ Item {
                     x: 0
                     y: 0
                     width: parent.width
-                    height: 500 - Data.Values.displayvaleur_niveau_cuve*50
+                    height: 500 - Data.Values.display_Valeur_Niveau_cuve*50
                     // color: "#6bb3d7"
                     color: "#d1d1d1"
                 }
@@ -67,7 +67,7 @@ Item {
                         y: 0
                         width: 50
                         height: 60
-                        visible: (Data.Values.displaydefautelec.includes("pompe 1"))
+                        visible: (Data.Values.display_Defaut_Elec_Pompe_1.includes("pompe 1"))
                     }
                     Image {
                         source: "../images/orange_light_bulb.png"
@@ -75,7 +75,7 @@ Item {
                         y: 65
                         width: 34
                         height: 44
-                        visible: (Data.Values.display_working_p1)
+                        visible: (Data.Values.display_Retour_Marche_Pompe_1)
                     }
                 }
                 Image {
@@ -103,7 +103,7 @@ Item {
                         y: 0
                         width: 50
                         height: 60
-                        visible: (Data.Values.displaydefautelec.includes("pompe 2"))
+                        visible: Data.Values.display_Defaut_Elec_Pompe_2.includes("pompe 2")
                     }
                     Image {
                         source: "../images/orange_light_bulb.png"
@@ -111,7 +111,7 @@ Item {
                         y: 65
                         width: 34
                         height: 44
-                        visible: (Data.Values.display_working_p2)
+                        visible: (Data.Values.display_Retour_Marche_Pompe_2)
                     }
                     
                 }
