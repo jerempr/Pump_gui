@@ -22,12 +22,11 @@ from colorama import Fore
 # UNIT = 0x01
 
 class OperaMetrix_ModbusTCP_client():
-    def __init__(self,host='192.168.0.90',port = 502 ):
+    def __init__(self,host='192.168.0.90',port = 502,source_addr = '192.168.0.200' ):
         
         self.host = host
-        self.client = ModbusTcpClient(self.host,port,)
+        self.client = ModbusTcpClient(self.host,port)
         self.MUTEX = False
-        log.info(self.client.port)
 
     def connect(self):
         """
@@ -161,12 +160,13 @@ class OperaMetrix_ModbusTCP_client():
             builder.add_string(object)
         elif Type == 'bool':
             b = int(addr)
+            log.info(b)
             decimales = addr%b
             towrite = [self.Read_addr(b,Type,False),self.Read_addr(b+0.05,Type,False),self.Read_addr(b+0.1,Type,False),self.Read_addr(b+0.15,Type,False),self.Read_addr(b+0.2,Type,False),self.Read_addr(b+0.25,Type,False),self.Read_addr(b+0.3,Type,False),self.Read_addr(b+0.35,Type,False)]
-            logging.info(f"towrite: {towrite}")
+            # logging.info(f"towrite: {towrite}")
             towrite[round(decimales*20)] = object
             builder.add_bits(towrite)
-            logging.info(f"towrite: {towrite}")
+            # logging.info(f"towrite: {towrite}")
         elif Type == '16uint':
             b = addr%int(addr)
             if b == 0:
