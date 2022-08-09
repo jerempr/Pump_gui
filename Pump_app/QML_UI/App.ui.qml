@@ -21,6 +21,12 @@ ApplicationWindow {
         }
         anchors.fill: parent
 
+        MouseArea {
+            anchors.fill: parent
+            enabled: false
+            cursorShape: Qt.BlankCursor
+        }
+
         Shortcut {
             sequence: "Ctrl+A"
             onActivated: {

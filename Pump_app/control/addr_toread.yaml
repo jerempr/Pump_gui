@@ -28,6 +28,7 @@
 Retour_Marche_Pompe_1
 Defaut_Elec_Pompe_1
 Alarmes_Nombres_de_Démarrages_PompeA
+Set_Defaut_P1
 # Reserve_Pompe_1_-_1
 # Reserve_Pompe_1_-_2
 # Reserve_Pompe_1_-_3
@@ -41,6 +42,7 @@ Alarmes_Nombres_de_Démarrages_PompeA
 Retour_Marche_Pompe_2
 Defaut_Elec_Pompe_2
 Alarmes_Nombres_de_Démarrages_PompeB
+Set_Defaut_P2
 # Reserve_Pompe_2_-_1
 # Reserve_Pompe_2_-_2
 # Reserve_Pompe_2_-_3
