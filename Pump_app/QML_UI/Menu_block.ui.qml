@@ -22,7 +22,7 @@ Item {
             text: Data.Values.display_Defaut_Elec_Pompe_1 + Data.Values.display_Defaut_Elec_Pompe_2
             color: "red"
             font.pixelSize: 11
-            horizontalAlignment: Text.AlignCenter
+            horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
     }

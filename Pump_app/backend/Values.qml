@@ -32,6 +32,9 @@ QtObject {
 
     // OPCUA values received
 
+    property bool display_connected : false
+
+
     property string display_Ihm_Seuil_Niveau_Bas : "N/A"
 
     property string display_Ihm_Seuil_Niveau_Haut : "N/A"
@@ -112,6 +115,9 @@ QtObject {
             val = false
         }
         switch (id){
+            case "connected":
+                display_connected = val
+                break;
             case "Ihm_Seuil_Niveau_Bas":
                 display_Ihm_Seuil_Niveau_Bas = val
                 break;

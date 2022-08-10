@@ -44,7 +44,13 @@ class Opcuainfo(QThread):
         def first_call(self):
                 """à appeller pour avoir les valeurs au lancement de l'application (sans interrputions"""
                 log.info("First call of OPCUAinfo!!")
+                self.SystemSignal.emit("connected","True")
                 # self.SystemSignal.emit("nan,"*120)
+        
+        def warn_closed_connexion(self):
+                """ call if connexion close in the middle of the process"""
+                log.info("Call Server connexion error")
+                self.SystemSignal.emit("connected","False")
                 
         
         def datachange_notification(self, node: Node, val, data):

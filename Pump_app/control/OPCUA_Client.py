@@ -5,25 +5,9 @@ from colorama import Fore
 from asyncua import Client, Node, ua
 import asyncio
 
-# import logging
-# # --------------------------------------------------------------------------- #
-# # log config
-# # --------------------------------------------------------------------------- #
-# FORMAT = (
-#     "%(asctime)-15s %(threadName)-15s "
-#     "%(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s"
-# )
-# logging.basicConfig(format=FORMAT)
-# log = logging.getLogger()
-# log.setLevel(logging.DEBUG)
 
+from time import sleep
 
-# UNIT = 0x01
-
-class SubscriptionHandler:
-    def datachange_notification(self, node: Node, val, data):
-        """Callback for asyncua Subscription"""
-        log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} -- with data: {data}"+Fore.RESET)
 
 class OperaMetrix_OPCUA_client():
     def __init__(self,handler,url = 'opc.tcp://localhost:4840/freeopcua/server/',uri = "http://edge-proxy.operametrix.fr"):
@@ -33,7 +17,6 @@ class OperaMetrix_OPCUA_client():
         self.nodes = []
         self.handler = handler
         self.object = "API_local"
-        self.client = Client(url=self.url)
         self.My_addresses = []
         self._get_addr_list()
         
@@ -42,12 +25,19 @@ class OperaMetrix_OPCUA_client():
         
     async def run(self):
         log.info("Running task opcua!")
+        await self._connect()
         async with self.client:
-            await self._connect()
             await self._subscribe("Valeur_Niveau_cuve")
-            await self._keepalive()
             while True:
                 await asyncio.sleep(20)
+                try:
+                    await self.client.send_hello()
+                except AttributeError:
+                    log.warning("Connexion to the OPCUA server closed! We will try to reconnect...")
+                    break
+        # self._close()
+        self.handler.warn_closed_connexion()
+        return await self.run()
         
     
     
@@ -56,14 +46,22 @@ class OperaMetrix_OPCUA_client():
         for addr_name in self.My_addresses:
             self.nodes.append(self.client.get_node(ua.NodeId(f"{self.object}:{addr_name}",self.idx)))
         print (f"Nodes: {self.nodes}")
-    
-    async def _keepalive(self):
         await self.subscription.subscribe_data_change(self.nodes)
+        
     
     async def _connect(self):
-        self.root = self.client.get_root_node()
-        self.idx = await self.client.get_namespace_index(self.uri)
-        # self.idx = 2
+        while True:
+            try:
+                self.client = Client(url=self.url)
+                async with self.client:
+                    self.root = self.client.get_root_node()
+                    self.idx = await self.client.get_namespace_index(self.uri)
+                break
+            except OSError:
+                log.warning("No connexion found to the opcua server... Retrying in 10s...")
+                sleep(10)
+        log.info("We connected successfully to the server !")
+        self.handler.first_call()
         log.info(f"INDEX: {self.idx}")
         
     def _get_addr_list(self):
@@ -73,5 +71,7 @@ class OperaMetrix_OPCUA_client():
                 self.My_addresses.append(line.strip('\n'))
             
     
-    def _close(self):
+    async def _close(self):
+        await subscription.unsubscribe(handle)
+        await subscription.delete()
         self.client.disconnect()

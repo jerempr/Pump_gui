@@ -51,6 +51,43 @@ ApplicationWindow {
         }
 
         Popup {
+            id: connextion_popup
+            modal: true
+            visible: !Data.Values.display_connected
+            x: 480
+            y: 480
+            width: 320
+            height: 320
+            closePolicy: Popup.CloseOnEscape
+             Item {
+                id: connexion_popup_container
+                anchors.fill: parent
+                rotation: 90
+                transformOrigin: Item.Center
+                Rectangle {
+                    anchors.centerIn: parent
+                    anchors.fill: parent
+                    color: "red"
+                    Text {
+                        anchors.fill:parent
+                        id: myText
+                        font.family: "Helvetica"
+                        font.pixelSize: 20
+                        color: "white"
+                        text:  qsTr(" \n No connexion to the server... \n Retrying in 10s...")
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+                    AnimatedImage { 
+                        id: loading
+                        source: "../images/loading.gif" 
+                        y: 100
+                        x: 100
+                    }
+                }
+            }
+        }
+
+        Popup {
             id: close_popup
             modal: true
             visible: Data.Values.display_popup + close_popup.visible
