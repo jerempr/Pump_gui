@@ -55,11 +55,11 @@ class Opcuainfo(QThread):
         
         def datachange_notification(self, node: Node, val, data):
                 """Callback for asyncua Subscription"""
-                # log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} "+Fore.RESET)
+                # log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} "+Fore.RED +f"data: {data.monitored_item.Value.SourceTimestamp}"+Fore.RESET)
                 strid = str(node.nodeid.Identifier).replace("API_local:","")
                 # check if we need to send a problem message:
                 if "Defaut_Elec_Pompe" in strid:
-                        val = "" + bool(val) * f":<b>  - Défaut sur la pompe {strid[-1]} -  </b>"
+                        val = "" + bool(val) * f"<i>{str(data.monitored_item.Value.SourceTimestamp)[:-6]}<\i><b>  - Défaut sur la pompe {strid[-1]} -  </b>"
                 elif type(val) == float:
                         val = round(val,2)
                 # elif str(val) == "True" or str(val) == "False":
