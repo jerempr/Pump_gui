@@ -29,8 +29,8 @@ class OperaMetrix_OPCUA_client():
         
         
     async def _run_afterconnect(self):
-        self.handler.first_call()
         await self._subscribe("Valeur_Niveau_cuve")
+        self.handler.first_call()
         while True:
             await asyncio.sleep(20)
             try:

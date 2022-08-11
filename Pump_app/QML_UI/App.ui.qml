@@ -14,6 +14,7 @@ ApplicationWindow {
  
     // initialize the first window of the application
     property var iniITEM: "P1.ui.qml"
+    property int loadedpage: 0
 
     Page{
         id: mymainpage
@@ -80,12 +81,12 @@ ApplicationWindow {
                         text:  qsTr(" \n No connexion to the server... \n Retrying in 10s...")
                         horizontalAlignment: Text.AlignHCenter
                     }
-                    // AnimatedImage { 
-                    //     id: loading
-                    //     source: "../images/loading.gif" 
-                    //     y: 100
-                    //     x: 100
-                    // }
+                    AnimatedImage { 
+                        id: loadinganimation
+                        source: "../images/loading.gif" 
+                        y: 100
+                        x: 100
+                    }
                 }
             }
         }
@@ -199,8 +200,34 @@ ApplicationWindow {
                     triggeredOnStart: true
                     onTriggered: {
                         console.log("triggered timer")
+                        pagesloadingtimer.running = !pagesloadingtimer.running
                         loading_popup.visible = !loading_popup.visible
                         }
+                }
+                // We will use another timer to load all the pages that we will need after
+                Timer {
+                    id: pagesloadingtimer
+                    interval: 1500
+                    running: false
+                    repeat: true
+                    onTriggered: {
+                        // console.log("triggered second timer!")
+                        switch (loadedpage){
+                            case 0:
+                                stackview.push("P2_parameters.ui.qml",StackView.Immediate)
+                                break;
+                            case 1:
+                                stackview.push("P3_warnings.ui.qml",StackView.Immediate)
+                                break;
+                            case 3:
+                                stackview.push("P4_sysparams.ui.qml",StackView.Immediate)
+                                break;
+                            case 4:
+                                stackview.push(iniITEM,StackView.Immediate)
+                                break;
+                        }
+                        loadedpage = loadedpage + 1
+                    }
                 }
             }
         }
