@@ -42,6 +42,8 @@ class Reterminalinfo(QThread):
                 
         @asyncqt.asyncSlot()
         async def btn_coroutine(self):
+                """asyncronous function to get if we push the 'O' button
+                """
                 async for event in self.btn_device.async_read_loop():
                         self.UsrGreenOff()
                         buttonEvent = rt_btn.ButtonEvent(event)
@@ -60,6 +62,8 @@ class Reterminalinfo(QThread):
         # close
         @Slot()
         def closeWindow(self):
+                """function to close the qt application
+                """
                 if self.distrib_Yocto:
                         os.system("rm /home/pi/gui/gui_test/Debian_Pompe/*/*.qmlc")
                         sys.exit()
@@ -68,6 +72,8 @@ class Reterminalinfo(QThread):
                 
         @Slot()
         def Reboot(self):
+                """reboot the terminal
+                """
                 if self.distrib_Yocto:
                         os.system("(sleep 3 ; reboot) &")
                         log.info("Thanks, the system will reboot now")
@@ -81,6 +87,11 @@ class Reterminalinfo(QThread):
                 
         @Slot()
         def Restart_app(self,timer = 3):
+                """restart the application
+
+                Args:
+                    timer (int, optional): in how many time you want the app to restart (seconds). Defaults to 3.
+                """
                 if self.distrib_Yocto:
                         log.info("Thanks, the app will restart now")
                         os.system("cp /home/root/GUI_Demo_Custom/Guilogs /home/root/GUI_Demo_Custom/Old_guilogsbeforerestart")
@@ -93,12 +104,16 @@ class Reterminalinfo(QThread):
                         sys.exit()
                 
         def UsrGreenOn(self):
+                """put the user led to green and on
+                """
                 if self.distrib_Yocto:
                         os.system("sh -c 'echo 255 > /sys/class/leds/usr_led0/brightness'")
                 else:
                         os.system("sudo sh -c 'echo 255 > /sys/class/leds/usr_led0/brightness'")
         
         def UsrGreenOff(self):
+                """put the user led off
+                """
                 if self.distrib_Yocto:
                         os.system("sh -c 'echo 0 > /sys/class/leds/usr_led0/brightness'")
                 else:

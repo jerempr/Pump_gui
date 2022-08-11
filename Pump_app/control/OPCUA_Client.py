@@ -10,6 +10,8 @@ from time import sleep
 import sys
 
 class OperaMetrix_OPCUA_client():
+    """Client for opcua. Needs a handler to handle the suscriptions nodes changes notifications.
+    """ 
     def __init__(self,handler,url = 'opc.tcp://localhost:4840/freeopcua/server/',uri = "http://edge-proxy.operametrix.fr"):
         log.info("trying to use OPCUA communication...")
         self.url = url
@@ -24,11 +26,17 @@ class OperaMetrix_OPCUA_client():
 
         
     async def run(self):
+        """
+        task to launch the client with.
+        """
         log.info("Running task opcua!")
         await self._connect()
         
         
     async def _run_afterconnect(self):
+        """
+        running function after connexion, it will call the subscribe function and then wait for an error to occur.
+        """
         await self._subscribe("Valeur_Niveau_cuve")
         self.handler.first_call()
         while True:
@@ -42,7 +50,9 @@ class OperaMetrix_OPCUA_client():
         self.handler.warn_closed_connexion()
         return await self.run()
     
-    async def _subscribe(self, name:str):
+    async def _subscribe(self):
+        """allows to subscribe to all the nodes written in a file add_toread.yaml that must be in the same directory
+        """
         self.idx = await self.client.get_namespace_index(self.uri)
         # log.info(f"INDEX: {self.idx}")
         self.subscription = await self.client.create_subscription(500, self.handler)
@@ -53,6 +63,8 @@ class OperaMetrix_OPCUA_client():
         
     
     async def _connect(self):
+        """This function allows to wait for connexion to the opcua server.
+        """
         while True:
             try:
                 self.client = Client(url=self.url)
@@ -71,6 +83,9 @@ class OperaMetrix_OPCUA_client():
         
         
     def _get_addr_list(self):
+        """
+        parse the file addr_toread to get the nodes names that we need to subscribe to
+        """
         file = open('addr_toread.yaml', 'r')
         for line in file:
             if line[0] != "#":
@@ -78,6 +93,8 @@ class OperaMetrix_OPCUA_client():
             
     
     async def _close(self):
-        await subscription.unsubscribe(handle)
-        await subscription.delete()
+        """delete subscriptions and disconnect to the server
+        """
+        await self.subscription.unsubscribe(self.handle)
+        await self.subscription.delete()
         self.client.disconnect()

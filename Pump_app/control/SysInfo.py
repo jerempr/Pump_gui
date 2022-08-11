@@ -33,6 +33,8 @@ def Get_clean_datetime():
 
 # class to handle the date
 class Sysinfo(QThread):
+    """parse the datetime and show it
+    """
     SystemSignal = Signal(str)
     def __init__(self):
         super().__init__()
