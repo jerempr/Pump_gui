@@ -12,7 +12,6 @@ export QT_QPA_EGLFS_ALWAYS_SET_MODE=1
 export QT_QPA_EGLFS_PHYSICAL_WIDTH=1280
 export QT_QPA_EGLFS_PHYSICAL_HEIGHT=720
 export QT_IM_MODULE=qtvirtualkeyboard myapp
-export QT_QPA_EGLFS_HIDECURSOR=1
 # in order to not show the warning message:
 # export XDG_RUNTIME_DIR='/var/volatile/tmp/runtime-root'
 cd /home/pi/gui/Pump_gui/Pump_app/control/

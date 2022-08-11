@@ -37,14 +37,14 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if (menublock.page != 4 ){
-                    stackview.pop()
+                    // stackview.pop()
                     stackview.push("P4_sysparams.ui.qml",StackView.Immediate)
                     menublock.page = 4
                     console.info("image OperaMetrix clicked!")
                     console.info("push to page 4")
                 }
                 else{
-                    stackview.pop()
+                    // stackview.pop()
                     stackview.push("P1.ui.qml",StackView.Immediate)
                     menublock.page = 1
                     console.info("image OperaMetrix clicked!")
@@ -65,14 +65,14 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if (menublock.page != 2 ){
-                    stackview.pop()
+                    // stackview.pop()
                     stackview.push("P2_parameters.ui.qml",StackView.Immediate)
                     menublock.page = 2
                     console.info("image parameters clicked!")
                     console.info("push to page 2")
                 }
                 else{
-                    stackview.pop()
+                    // stackview.pop()
                     stackview.push("P1.ui.qml",StackView.Immediate)
                     menublock.page = 1
                     console.info("image parameters clicked!")
@@ -93,14 +93,15 @@ Item {
             anchors.fill: parent
             onClicked: {
                 if (menublock.page != 3 ){
-                    stackview.pop()
+                    // stackview.pop()
                     stackview.push("P3_warnings.ui.qml",StackView.Immediate)
                     menublock.page = 3
                     console.info("image warnings clicked!")
                     console.info("push to page 3")
                 }
                 else{
-                    stackview.pop()
+                    console.info("avant changement de page")
+                    // stackview.pop()
                     stackview.push("P1.ui.qml",StackView.Immediate)
                     menublock.page = 1
                     console.info("image warnings clicked!")

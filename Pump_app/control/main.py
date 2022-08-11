@@ -42,7 +42,9 @@ def Launch_OPCUA(handler):
     # print(Fore.GREEN+"on en sors!"+Fore.RESET)
     opcloop.close()
 
-
+def Launch_reterminalinfo(loop,reterminalinfo):
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(reterminalinfo.btn_coroutine())
 
 
 # launch the app
@@ -71,13 +73,6 @@ if __name__ == '__main__':
     opcuainfo = Opcuainfo()
     reterminalinfo = Reterminalinfo()
     
-    
-    # Add close async interruption:
-    # création de la boucle qui va permettre l'interruption de fermeture d'application
-    loop = asyncqt.QEventLoop(app)
-    asyncio.set_event_loop(loop)
-    
-
     # Rends les composants utilisables pour les .qml
     context.setContextProperty("_Sysinfo", sysinfo)
     context.setContextProperty("_Netinfo", netinfo)
@@ -86,27 +81,35 @@ if __name__ == '__main__':
     
     sysinfo.start()
     netinfo.start()
-    # modinfo.start()
+
     
-    log.info("launching the app !")
-    engine.load(url)
-    log.info("Will use asyncio, begin to xreate the loop...")
-    #On lance la boucle d'interruption puis l'application
+    log.info("begin to create the loops...")
+    
+    #loop to handle opcua client
     T_opcua = threading.Thread(target=Launch_OPCUA, args = (opcuainfo,))
     T_opcua.setDaemon(True)
     T_opcua.start()
-    # Myclient = 
     
-    # loope = asyncio.get_event_loop()
-    # # loop.run_in_executor(executor, reterminalinfo.btn_coroutine)
-    # # log.info("reterminal button loop created!")
-    # loope.run_in_executor(executor, Myclient.run)
-    log.info("opcua loop created!")
-    
-    
-    with loop:
-            loop.run_until_complete(reterminalinfo.btn_coroutine())
+    engine.load(url)
+    # app.exec()
 
-    loop.run_forever()
-    app.exec_()
+    # loop for handling reTerminal buttons
+    loop = asyncqt.QEventLoop(app)
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(reterminalinfo.btn_coroutine())
+    # T_reterminalinfo = threading.Thread(target=Launch_reterminalinfo,args = (loop,reterminalinfo,))
+    # T_reterminalinfo.setDaemon(True)
+    # T_reterminalinfo.start()
+    
+
+
+
+
+    log.info("opcua loop created!")
+    log.info("reTerminal buttons loop created!")
+
+
+    log.info("launching the app !")
+    engine.load(url)
+    app.exec()
     

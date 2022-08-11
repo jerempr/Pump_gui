@@ -80,12 +80,12 @@ ApplicationWindow {
                         text:  qsTr(" \n No connexion to the server... \n Retrying in 10s...")
                         horizontalAlignment: Text.AlignHCenter
                     }
-                    AnimatedImage { 
-                        id: loading
-                        source: "../images/loading.gif" 
-                        y: 100
-                        x: 100
-                    }
+                    // AnimatedImage { 
+                    //     id: loading
+                    //     source: "../images/loading.gif" 
+                    //     y: 100
+                    //     x: 100
+                    // }
                 }
             }
         }

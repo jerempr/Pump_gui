@@ -62,8 +62,8 @@ class OperaMetrix_OPCUA_client():
                     await self._run_afterconnect()
                 break
             except (OSError,asyncio.exceptions.TimeoutError):
-                log.warning(f"{sys.exc_info()[0]}: No connexion found to the opcua server... Retrying in 10s...")
-                sleep(10)
+                log.warning(f"{sys.exc_info()[0]}: No connexion found to the opcua server... Retrying ...")
+                sleep(2)
             except:
                 log.error(f"Unexpected error:{sys.exc_info()[0]}")
                 raise

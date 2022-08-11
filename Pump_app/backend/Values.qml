@@ -73,10 +73,9 @@ QtObject {
     Component.onCompleted: {
         _Netinfo.SystemSignal.connect(netinfofunc)
         _Opcuainfo.SystemSignal.connect(opcuainfofunc)
-        // _Modbusinfo.Ihm_parametersSignal(modbusinfoparamsfunc)
         _Sysinfo.SystemSignal.connect(sysinfofunc)
         _Reterminalinfo.SystemSignal.connect(reterminalinfofunc)
-        loadingfunc()
+        // loadingfunc()
     }
 
     function reterminalinfofunc(popup) {
