@@ -5,6 +5,8 @@ import QtQuick 2.8
 
 QtObject {
     id: networkvalues
+    //loading dots
+    property string displayloading: "..."
     //Datetime
     property string displaydatetime: "00/00/00 00:00:00"
 
@@ -74,6 +76,7 @@ QtObject {
         // _Modbusinfo.Ihm_parametersSignal(modbusinfoparamsfunc)
         _Sysinfo.SystemSignal.connect(sysinfofunc)
         _Reterminalinfo.SystemSignal.connect(reterminalinfofunc)
+        loadingfunc()
     }
 
     function reterminalinfofunc(popup) {
@@ -85,25 +88,40 @@ QtObject {
         displaydatetime = String(str1)
     }
 
+    // Timer {
+    //     id: timer
+    //     function delay(delayTime) {
+    //         timer.interval = delayTime;
+    //         timer.repeat = false;
+    //         timer.triggered.connect(function release () {
+    //             timer.triggered.disconnect(release); //This is important as well
+    //         });
+    //         timer.start();
+    //     }
+    // }
+
+    // function loadingfunc(){
+    //     while(true){
+    //         if (displayloading == "."){
+    //             displayloading = ".."
+    //         }
+    //         else if (displayloading == ".."){
+    //             displayloading = "..."
+    //         }
+    //         else if (displayloading == "..."){
+    //             displayloading = "."
+    //         }
+    //         delay(500)
+    //     }
+    // }
+
+
     function netinfofunc(str5,str6) {
         // console.log("\nVoila le date objet reçu: ",str7);
         displayethernet = String(str5)
         displaywifi = String(str6)
     }
-    // function opcuainfofunc(displayIhm,GraisseOn,valeur_niveau_cuve,defautelec,marchep1,marchep2) {
-    //     // console.log("ça marche 3");
-    //     // Receive list Ihm and split it to get all the values and then attribute it to the variables:
-    //     if (displayIhm != displayIhmList){
-    //         displayIhmList = displayIhm.split(',')
-    //     }
-        
-            
-    //     display_graisseOn = GraisseOn
-    //     displayvaleur_niveau_cuve = valeur_niveau_cuve
-    //     displaydefautelec = String(defautelec)
-    //     display_working_p1 = marchep1
-    //     display_working_p2 = marchep2
-    // }
+
 
     function opcuainfofunc(id,val) {
         // Receive list Ihm and split it to get all the values and then attribute it to the variables:

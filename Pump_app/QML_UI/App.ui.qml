@@ -16,15 +16,18 @@ ApplicationWindow {
     property var iniITEM: "P1.ui.qml"
 
     Page{
+        id: mymainpage
         transform: Rotation {
             origin.x:360; origin.y: 360; angle: 90
         }
         anchors.fill: parent
 
-        MouseArea {
-            anchors.fill: parent
-            enabled: false
-            cursorShape: Qt.BlankCursor
+        Shortcut {
+            sequence: "Ctrl+T"
+            onActivated: {
+                console.log("truc")
+                console.log(stackview.get(1))
+            }
         }
 
         Shortcut {
@@ -53,7 +56,7 @@ ApplicationWindow {
         Popup {
             id: connextion_popup
             modal: true
-            visible: !Data.Values.display_connected
+            visible: !Data.Values.display_connected && !loading_popup.visible
             x: 480
             y: 480
             width: 320
@@ -149,6 +152,56 @@ ApplicationWindow {
                     }
                 }
             
+            }
+        }
+    }
+    Popup {
+        id: loading_popup
+        // modal: true
+        closePolicy: Popup.CloseOnEscape
+        Item {
+            x: 0
+            y: 0
+            width: 1280 
+            height: 720 
+            // anchors.fill: parent
+            id: loading_popup_container
+            transform: Rotation {
+                origin.x:360; origin.y: 360; angle: 90
+            }
+            // transformOrigin: Item.Center
+            Rectangle {
+                anchors.centerIn: parent
+                anchors.fill: parent
+                color: "white"
+                Image {
+                    source: "../images/logo.png"
+                    anchors.centerIn: parent
+                    width: 500
+                    height: 500
+                }
+                Text {
+                    // anchors.centerIn: parent
+                    x: 0
+                    y: 600
+                    width: parent.width
+                    height: 50 
+                    font.family: "Helvetica"
+                    font.pixelSize: 40
+                    color: "black"
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text:  qsTr("Loading app")+Data.Values.displayloading
+                }
+                Timer {
+                    interval: 10000
+                    running: true
+                    triggeredOnStart: true
+                    onTriggered: {
+                        console.log("triggered timer")
+                        loading_popup.visible = !loading_popup.visible
+                        }
+                }
             }
         }
     }

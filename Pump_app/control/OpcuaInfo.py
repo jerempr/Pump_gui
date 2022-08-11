@@ -62,10 +62,6 @@ class Opcuainfo(QThread):
                         val = "" + bool(val) * f"<i>{str(data.monitored_item.Value.SourceTimestamp)[:-6]}<\i><b>  - Défaut sur la pompe {strid[-1]} -  </b>"
                 elif type(val) == float:
                         val = round(val,2)
-                # elif str(val) == "True" or str(val) == "False":
-                #         val = str(val).lower()
-                #         log.info("Changement d'écriture des booléens!")
-                # log.info(f"strid: {strid}")
                 self.SystemSignal.emit(f"{strid}",f"{val}")
 
         @Slot(int,float)
