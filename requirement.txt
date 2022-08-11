@@ -1,0 +1,4 @@
+asyncqt
+asyncua
+PySide2 or PyQt5
+seeed_python_reterminal
