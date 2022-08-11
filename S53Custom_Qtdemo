@@ -5,10 +5,11 @@ modprobe lis331dlh-i2c
 echo "loading qt demo..."
 export QT_QPA_PLATFORM=eglfs
 export QT_QPA_EGLFS_ALWAYS_SET_MODE=1
+export QT_QPA_EGLFS_HIDECURSOR=1
 # in order to not show the warning message:
 export XDG_RUNTIME_DIR='/var/volatile/tmp/runtime-root'
 cd /home/root/GUI_Demo_Custom/control
-python3 main.py &
+python3 main.py>/home/root/GUI_Demo_Custom/Guilogs.log 2>&1 &
 echo "qt demo start ok!"
 echo "changing eth0 IP work with API... "
 ip a a 192.168.0.200/24 dev eth0
