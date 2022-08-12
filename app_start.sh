@@ -25,7 +25,7 @@ else
     export QT_QPA_EGLFS_PHYSICAL_HEIGHT=720
 
     cd /home/pi/gui/Pump_gui/
-
+fi
 
 echo "qt demo starting..."
 # python3 -m Pump_app.control  -l $loglevel
@@ -35,3 +35,4 @@ echo "end of qt demo"
 if [[ $(cat /etc/hostname | grep raspberry) ]]
 then
     rm /home/pi/gui/Pump_gui/Pump_app/*/*.qmlc
+fi
