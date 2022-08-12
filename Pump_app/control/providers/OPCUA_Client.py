@@ -1,9 +1,10 @@
-from logger import *
+# from logger import *
 from colorama import Fore
 
 from asyncua import Client, Node, ua
 import asyncio
-
+import logging
+log = logging.getLogger(__name__)
 
 from time import sleep
 
@@ -37,7 +38,7 @@ class OperaMetrix_OPCUA_client():
         """
         running function after connexion, it will call the subscribe function and then wait for an error to occur.
         """
-        await self._subscribe("Valeur_Niveau_cuve")
+        await self._subscribe()
         self.handler.first_call()
         while True:
             await asyncio.sleep(20)
@@ -86,7 +87,7 @@ class OperaMetrix_OPCUA_client():
         """
         parse the file addr_toread to get the nodes names that we need to subscribe to
         """
-        file = open('addr_toread.yaml', 'r')
+        file = open('/home/root/GUI_Demo_Custom/Pump_app/control/providers/addr_toread.yaml', 'r')
         for line in file:
             if line[0] != "#":
                 self.My_addresses.append(line.strip('\n'))

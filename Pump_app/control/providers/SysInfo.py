@@ -1,5 +1,8 @@
 import sys
 import datetime
+import logging
+log = logging.getLogger(__name__)
+
 
 try:
         from PySide2.QtCore import *

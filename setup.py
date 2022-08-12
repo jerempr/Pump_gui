@@ -8,9 +8,10 @@ setup(
     author="Jérémie Probst",
     author_email="jprobst@operametrix.fr",
     url="https://github.com/jerempr/Pump_gui.git",
+    packages=["Pump_app.control","Pump_app.control.providers"],
     entry_points={
         "console_scripts": [
-            "Pump_app=control.main:__main__",
+            "Pump_app=Pump_app.control.main:__main__",
         ]
     },
     install_requires=["asyncqt","asyncua","PySide2","seeed_python_reterminal"],

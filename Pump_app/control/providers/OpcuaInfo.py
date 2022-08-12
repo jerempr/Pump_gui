@@ -1,9 +1,10 @@
 ## Importations
 import sys
+import logging
+log = logging.getLogger(__name__)
 
-
-from logger import *
-from SysInfo import Get_clean_datetime
+# from logger import *
+from Pump_app.control.providers.SysInfo import Get_clean_datetime
 
 from asyncua import Node
 from colorama import Fore
@@ -26,8 +27,8 @@ def attribute_default_pump_datetime(bin,date):
                 date = ""
         return date
 
-
-
+import logging
+log = logging.getLogger(__name__)
 
 
 class Opcuainfo(QThread):

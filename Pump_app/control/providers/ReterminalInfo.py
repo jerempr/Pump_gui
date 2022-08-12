@@ -1,6 +1,8 @@
 import sys
 import os
 from time import sleep
+import logging
+log = logging.getLogger(__name__)
 
 try:
         from PySide2.QtCore import *
@@ -13,7 +15,7 @@ else:
         from PySide2.QtCore import Signal, Slot
 
 
-from logger import log
+# from logger import log
 
 
 import asyncqt

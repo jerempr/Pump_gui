@@ -2,7 +2,7 @@
 import sys
 import os
 
-from logger import *
+# from logger import *
 
 try:
 	import PySide2.QtQml
@@ -20,12 +20,14 @@ else:
 	from PySide2.QtCore import *
 	print("this app use pyside2")
 
-from NetInfo import Netinfo
-from OpcuaInfo import Opcuainfo
-from SysInfo import Sysinfo
-from ReterminalInfo import Reterminalinfo
- 
-from OPCUA_Client import OperaMetrix_OPCUA_client
+
+
+from Pump_app.control.providers.NetInfo import Netinfo
+from Pump_app.control.providers.OpcuaInfo import Opcuainfo
+from Pump_app.control.providers.SysInfo import Sysinfo
+from Pump_app.control.providers.ReterminalInfo import Reterminalinfo
+
+from Pump_app.control.providers.OPCUA_Client import OperaMetrix_OPCUA_client
  
 
 import asyncio
@@ -34,7 +36,16 @@ import asyncqt
 import threading
 
 
+import argparse
+import logging
+
+
 def Launch_OPCUA(handler):
+    """Tread launching opcua client
+
+    Args:
+        handler : handler for the opcua client subscriptions
+    """
     Myclient = OperaMetrix_OPCUA_client(handler)
     opcloop = asyncio.new_event_loop()
     asyncio.set_event_loop(opcloop)
@@ -42,38 +53,70 @@ def Launch_OPCUA(handler):
     # print(Fore.GREEN+"on en sors!"+Fore.RESET)
     opcloop.close()
 
-def Launch_reterminalinfo(loop,reterminalinfo):
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(reterminalinfo.btn_coroutine())
+def config_argument():
+    """configurate our arguments parsing
+    """
+    parser = argparse.ArgumentParser(description="Edge-Proxy proxifies anything to OPC:UA.")
+    parser.add_argument(
+        "-l",
+        "--log-level",
+        type=str,
+        default="error",
+        choices=["debug", "info", "warning", "error", "critical"],
+        help="debug output (caution, sensitive informations may appears in clear text)",
+    )
+    parser.add_argument("-f", "--foreground", action="store_true", help="foreground execution")
+    return parser.parse_args()
+
+def config_logging(args):
+    """configure our logging
+
+    Args:
+        args : arguments of the main call
+    """
+    # --------------------------------------------------------------------------- #
+    # log config
+    # --------------------------------------------------------------------------- #
+    FORMAT = (
+        "%(asctime)-15s %(threadName)-15s "
+        "%(levelname)-8s %(module)-15s:%(lineno)-8s %(message)s"
+    )
+    logging.basicConfig(format=FORMAT)
+    log = logging.getLogger()
+    log.setLevel(getattr(logging, args.log_level.upper()))
+
 
 
 # launch the app
 if __name__ == '__main__':
+    """
+    Main entry point
+    """
+    args = config_argument()
+    config_logging(args)
+    
+    log = logging.getLogger(__name__)
+
     app = QApplication([])
     engine = QQmlApplicationEngine()
-    engine.addImportPath("../imports")
-    os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
     
-    
-    
-    # Hide the mouse:
     
     # location of the fullscreen app that we created before
     if "Debian" in os.popen('hostnamectl').read().strip():
-        url = QUrl("../QML_UI/App_Debian.ui.qml")
+        url = QUrl("Pump_app/QML_UI/App_Debian.ui.qml")
     else:
-        url = QUrl("../QML_UI/App.ui.qml")
+        url = QUrl("Pump_app/QML_UI/App.ui.qml")
         
     
     context = engine.rootContext()
     
-    # Récup-re les classes créées dans les dépendances:
+    # Récupère les classes créées dans les dépendances:
     sysinfo = Sysinfo()
     netinfo = Netinfo()
     opcuainfo = Opcuainfo()
     reterminalinfo = Reterminalinfo()
     
-    # Rends les composants utilisables pour les .qml
+    # Rends les composants utilisables pour les .qml and start classes
     context.setContextProperty("_Sysinfo", sysinfo)
     context.setContextProperty("_Netinfo", netinfo)
     context.setContextProperty("_Opcuainfo", opcuainfo)
@@ -97,13 +140,6 @@ if __name__ == '__main__':
     loop = asyncqt.QEventLoop(app)
     asyncio.set_event_loop(loop)
     loop.run_until_complete(reterminalinfo.btn_coroutine())
-    # T_reterminalinfo = threading.Thread(target=Launch_reterminalinfo,args = (loop,reterminalinfo,))
-    # T_reterminalinfo.setDaemon(True)
-    # T_reterminalinfo.start()
-    
-
-
-
 
     log.info("opcua loop created!")
     log.info("reTerminal buttons loop created!")
