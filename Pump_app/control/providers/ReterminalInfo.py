@@ -1,6 +1,5 @@
 import sys
 import os
-from time import sleep
 import logging
 log = logging.getLogger(__name__)
 
@@ -55,7 +54,6 @@ class Reterminalinfo(QThread):
                                 if buttonEvent.name == rt_btn.ButtonName.O and buttonEvent.value == 1:
                                         self.UsrGreenOn()
                                         self.SystemSignal.emit(True)
-                                        # self.sleep(3)
                                 else:
                                         self.SystemSignal.emit(False)
                                         self.UsrGreenOff()

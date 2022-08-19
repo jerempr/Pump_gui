@@ -70,7 +70,7 @@ class Opcuainfo(QThread):
         
         def datachange_notification(self, node: Node, val, data):
                 """Callback for asyncua Subscription"""
-                log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} "+Fore.RED +f"data: {data.monitored_item.Value.SourceTimestamp}"+Fore.RESET)
+                # log.info(Fore.BLUE+f"Value for node {node.nodeid.Identifier} : {val} "+Fore.RED +f"data: {data.monitored_item.Value.SourceTimestamp}"+Fore.RESET)
                 strid = str(node.nodeid.Identifier).replace("API_local:","")
                 # check if we need to send a problem message:
                 if "Defaut_Elec_Pompe" in strid:

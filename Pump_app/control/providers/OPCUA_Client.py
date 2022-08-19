@@ -51,7 +51,7 @@ class OperaMetrix_OPCUA_client(QThread):
         self.OBJECT_NAME = "API_local"
         self.My_addresses = []
         # self._get_addr_list()
-        self.towrite = []
+        self._towrite = []
         self._parse_registers('/home/root/GUI_Demo_Custom/Pump_app/control/providers/addr_toread.yml')
         log.info("we are using OPCUA communication")
 
@@ -69,6 +69,7 @@ class OperaMetrix_OPCUA_client(QThread):
             config (str): config yaml file
         """
         self._myadresses=[]
+        self._myadresses_dict = {}
         with open(config) as file:
             data = yaml.load(file,Loader=yaml.FullLoader)
             for address in data:
@@ -81,6 +82,7 @@ class OperaMetrix_OPCUA_client(QThread):
                         new_addr = Register(
                             name=str(address['name']), type=str(address['type']), address=int(address['address']), writable=bool(address['writable'])
                         )
+                    self._myadresses_dict[new_addr.name] = new_addr
                 else:
                     new_addr = Register(
                             name=str(address['name']), type=str(address['type']), writable=bool(address['writable'])
@@ -119,9 +121,9 @@ class OperaMetrix_OPCUA_client(QThread):
         # log.info (Fore.GREEN + f"objects: {objects}" + Fore.RESET)
         while True:
             await asyncio.sleep(0.5)
-            if self.towrite :
+            if self._towrite :
                 log.info("we have something to write")
-                command = self.towrite.pop(0)
+                command = self._towrite.pop(0)
                 await self._write_to_node(command[0],command[1],command[2])
             loopcounter += 1
             if loopcounter == 40:
@@ -166,17 +168,21 @@ class OperaMetrix_OPCUA_client(QThread):
             node_name (str): the name of the node where we want to write
             obj (float): what we want to write
         """
-        for node in self._myadresses:
-            if node.name == node_name:
-                if node.writable:
-                    if node.type == 'Float':
-                        self.towrite.append([node_name,obj,node.type])
-                    elif node.type == 'Boolean':
-                        self.towrite.append([node_name,obj,node.type])
-                    else:
-                        log.error(f"bad type '{node.type}' name for write command to node {node_name}")
-                else:
-                    log.error(f"the node {node_name} was called as writable but is not")
+        node_towrite = self._myadresses_dict[node_name]
+        self._towrite.append([node_name,obj,node_towrite.type])
+
+        # self.
+        # for node in self._myadresses:
+        #     if node.name == node_name:
+        #         if node.writable:
+        #             if node.type == 'Float':
+        #                 self.towrite.append([node_name,obj,node.type])
+        #             elif node.type == 'Boolean':
+        #                 self.towrite.append([node_name,obj,node.type])
+        #             else:
+        #                 log.error(f"bad type '{node.type}' name for write command to node {node_name}")
+        #         else:
+        #             log.error(f"the node {node_name} was called as writable but is not")
         # writingloop = asyncio.new_event_loop()
         # asyncio.set_event_loop(writingloop)
         # writingloop.run_until_complete(self._write_to_node(node_name,obj))
