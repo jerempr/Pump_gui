@@ -52,7 +52,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             console.info("image pump a clicked!")
-                            _Opcuainfo.Write_modbus_boolean(54,1)
+                            _OPCclient.Write_node("Set_Defaut_P1",1)
                         }
                     }
                     Text {
@@ -88,7 +88,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             console.info("image pump b  clicked!")
-                            _Opcuainfo.Write_modbus_boolean(75,1)
+                            _OPCclient.Write_node("Set_Defaut_P2",1)
                         }
                     }
                     Text {

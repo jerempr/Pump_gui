@@ -80,7 +80,7 @@ Item {
             text: Data.Values.display_Ihm_Seuil_Niveau_Tres_Bas
             font.pixelSize: 15
             onAccepted:{
-                _Opcuainfo.Write_modbus_float(101,txt_ihmsntb.text.replace(",","."))
+                _OPCclient.Write_node("Ihm_Seuil_Niveau_Tres_Bas",txt_ihmsntb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsntb.text)
             }
         }
@@ -104,7 +104,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(97,txt_ihmsnb.text.replace(",","."))
+                _OPCclient.Write_node("Ihm_Seuil_Niveau_Bas",txt_ihmsnb.text.replace(",","."))
                 console.info("Written: ",txt_ihmsnb.text)
             }
         }
@@ -128,7 +128,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(99,txt_ihmsnh.text.replace(",","."))
+                _OPCclient.Write_node("Ihm_Seuil_Niveau_Haut",txt_ihmsnh.text.replace(",","."))
                 console.info("Written: ",txt_ihmsnh.text)
             }
         }
@@ -152,7 +152,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(103,txt_ihmsnth.text.replace(",","."))
+                _OPCclient.Write_node("Ihm_Seuil_Niveau_Tres_Haut",txt_ihmsnth.text.replace(",","."))
                 console.info("Written: ",txt_ihmsnth.text)
             }
         }
@@ -176,7 +176,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(105,txt_ihmvrvnh.text.replace(",","."))
+                _OPCclient.Write_node("Ihm_Volume_Niveau_Haut",txt_ihmvrvnh.text.replace(",","."))
                 console.info("Written: ",txt_ihmvrvnh.text)
             }
         }
@@ -197,7 +197,7 @@ Item {
             font.pixelSize: 15
             focus: true 
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(107,txt_ihmvrvnth.text.replace(",","."))
+                _OPCclient.Write_node("Ihm_Volume_Niveau_Tres_Haut",txt_ihmvrvnth.text.replace(",","."))
                 console.info("Written: ",txt_ihmvrvnth.text)
             }
         }
@@ -221,7 +221,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(109,txt_ihmecart.text.replace(",","."))
+                _OPCclient.Write_node("Temps_De_Décalage",txt_ihmecart.text.replace(",","."))
                 console.info("Written: ",txt_ihmecart.text)
             }
         }
@@ -244,7 +244,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(111,parent.text.replace(",","."))
+                _OPCclient.Write_node("Offset_Anneau_Graisse",parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -268,7 +268,7 @@ Item {
             focus: true 
             // color: "black"
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(91,parent.text.replace(",","."))
+                _OPCclient.Write_node("Valeur_Maxi_Niveau",parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -290,7 +290,7 @@ Item {
             // color: activeFocus ? "black" : "gray " 
             focus: true 
             onEditingFinished:{
-                _Opcuainfo.Write_modbus_float(89,parent.text.replace(",","."))
+                _OPCclient.Write_node("Valeur_Mini_Niveau",parent.text.replace(",","."))
                 console.info("Written: ",parent.text)
             }
         }
@@ -314,7 +314,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     console.info("image graisse on clicked!")
-                    _Opcuainfo.Write_modbus_boolean(113,0)
+                    _OPCclient.Write_node("Anneau_Graisse_ON",0)
                 }
             }
         }
@@ -329,7 +329,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     console.info("image graisse on clicked!")
-                    _Opcuainfo.Write_modbus_boolean(113,1)
+                    _OPCclient.Write_node("Anneau_Graisse_ON",1)
                 }
             }
         }

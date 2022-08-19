@@ -1,0 +1,244 @@
+
+# - name: Volume_Remplissage_Jour_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Volume_Remplissage_Jour_Prec_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Volume_Vidange_Jour_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Volume_Vidange_Jour_Prec_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Volume_Remplissage_Total_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Volume_Vidange_Total_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Volume_1
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Volume_2
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Volume_3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Volume_4
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Debit_Remplissage_moyen_Jour
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Debit_Remplissage_moyen_Jour_Prec
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Debit_Vidange_moyen_Jour
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Debit_Vidange_moyen_Jour_Prec
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Debit_1
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Debit_2
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Debit_3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Debit_4
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Debit_5
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Debit_6
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_1_Temps_de_Fonctionnement_Jour
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_1_Temps_de_Fonctionnement_Jour_Prec
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_1_Temps_de_Fonctionnement_Total
+#   type: Float
+#   always_good: True
+# - name: Pompe_1_Nombre_de_démarrages_Heure
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_1_Nombre_de_démarrages_Jour
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_1_Nombre_de_démarrages_Jour_Precc
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_1_Volume_Vidange_Total_m3
+#   type: Float
+#   always_good: True
+#   writable: False
+- name: Retour_Marche_Pompe_1
+  type: Boolean
+  writable: False
+- name: Defaut_Elec_Pompe_1
+  type: Boolean
+  writable: False
+# - name: Alarmes_Nombres_de_Démarrages_PompeA
+#   type: Boolean
+#   always_good: True
+#   writable: False
+- name: Set_Defaut_P1
+  type: Boolean
+  writable: True
+  address: 54
+  position: 15
+# - name: Reserve_Pompe_1_-_1
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Pompe_1_-_2
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Reserve_Pompe_1_-_3
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_2_Temps_de_Fonctionnement_Jour
+#   type: Float
+#   always_good: True
+#   writable: False
+# - name: Pompe_2_Temps_de_Fonctionnement_Jour_Prec
+#   type: Float
+#   always_good: True
+# - name: Pompe_2_Temps_de_Fonctionnement_Total
+#   type: Float
+#   always_good: True
+# - name: Pompe_2_Nombre_de_démarrages_Heure
+#   type: Float
+#   always_good: True
+# - name: Pompe_2_Nombre_de_démarrages_Jour
+#   type: Float
+#   always_good: True
+# - name: Pompe_2_Nombre_de_démarrages_Jour_Prec
+#   type: Float
+#   always_good: True
+# - name: Pompe_2_Volume_Vidange_Total_m3
+#   type: Float
+#   always_good: True
+- name: Retour_Marche_Pompe_2
+  type: Boolean
+  writable: False
+- name: Defaut_Elec_Pompe_2
+  type: Boolean
+  writable: False
+# - name: Alarmes_Nombres_de_Démarrages_PompeB
+#   type: Boolean
+#   always_good: True
+#   writable: False
+- name: Set_Defaut_P2
+  type: Boolean
+  writable: True
+  address: 75
+  position: 15
+# - name: Reserve_Pompe_2_-_1
+#   type: Float
+#   always_good: True
+# - name: Reserve_Pompe_2_-_2
+#   type: Float
+#   always_good: True
+# - name: Reserve_Pompe_2_-_3
+#   type: Float
+#   always_good: True
+- name: Acquittement
+  type: Boolean
+  writable: True
+  address: 82
+  position: 0
+# - name: Seuil_Niveau_Tres_Bas
+#   type: Float
+#   always_good: True
+# - name: Seuil_Niveau_Tres_Haut
+#   type: Float
+#   always_good: True
+- name: Valeur_Niveau_cuve
+  type: Float
+  writable: False
+# - name: Valeur_Mini_Niveau
+#   type: Float
+#   always_good: True
+# - name: Valeur_Maxi_Niveau
+#   type: Float
+#   always_good: True
+# - name: Seuil_Niveau_Bas
+#   type: Float
+#   always_good: True
+# - name: Seuil_Niveau_Haut
+#   type: Float
+#   always_good: True
+- name: Ihm_Seuil_Niveau_Bas
+  type: Float
+  writable: True
+  address: 97
+- name: Ihm_Seuil_Niveau_Haut
+  type: Float
+  writable: True
+  address: 99
+- name: Ihm_Seuil_Niveau_Tres_Bas
+  type: Float
+  writable: True
+  address: 101
+- name: Ihm_Seuil_Niveau_Tres_Haut
+  type: Float
+  writable: True
+  address: 103
+- name: Ihm_Volume_Niveau_Haut
+  type: Float
+  writable: True
+  address: 105
+- name: Ihm_Volume_Niveau_Tres_Haut
+  type: Float
+  writable: True
+  address: 107
+- name: Temps_De_Décalage
+  type: Float
+  writable: True
+  address: 109
+- name: Offset_Anneau_Graisse
+  type: Float
+  writable: True
+  address: 111
+- name: Anneau_Graisse_ON
+  type: Boolean
+  writable: True
+  address: 113
+  position: 0

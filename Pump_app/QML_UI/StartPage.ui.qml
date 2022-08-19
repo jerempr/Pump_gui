@@ -12,11 +12,10 @@ Item {
 
 
     Image {
-        source: "../images/logo.png"
+        source: "../images/logo_opm_horizontal_black.png"
         anchors.centerIn: parent
-        y: 
-        width: 500
-        height: 500
+        // width: 500
+        // height: 500
     }
 
     Text {

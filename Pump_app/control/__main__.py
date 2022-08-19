@@ -40,18 +40,6 @@ import argparse
 import logging
 
 
-def Launch_OPCUA(handler):
-    """Tread launching opcua client
-
-    Args:
-        handler : handler for the opcua client subscriptions
-    """
-    Myclient = OperaMetrix_OPCUA_client(handler)
-    opcloop = asyncio.new_event_loop()
-    asyncio.set_event_loop(opcloop)
-    opcloop.run_until_complete(Myclient.run())
-    # print(Fore.GREEN+"on en sors!"+Fore.RESET)
-    opcloop.close()
 
 def config_argument():
     """configurate our arguments parsing
@@ -86,6 +74,18 @@ def config_logging(args):
     log.setLevel(getattr(logging, args.log_level.upper()))
 
 
+def Launch_OPCUA(opcuaclient):
+    """Tread launching opcua client
+
+    Args:
+        handler : handler for the opcua client subscriptions
+    """
+    opcloop = asyncio.new_event_loop()
+    asyncio.set_event_loop(opcloop)
+    opcloop.run_until_complete(opcuaclient.run())
+    opcloop.close()
+
+
 
 # launch the app
 if __name__ == '__main__':
@@ -116,12 +116,17 @@ if __name__ == '__main__':
     opcuainfo = Opcuainfo()
     reterminalinfo = Reterminalinfo()
     
+    #initialise the client
+    Myclient = OperaMetrix_OPCUA_client(handler = opcuainfo )
+
+
     # Rends les composants utilisables pour les .qml and start classes
     context.setContextProperty("_Sysinfo", sysinfo)
     context.setContextProperty("_Netinfo", netinfo)
     context.setContextProperty("_Opcuainfo", opcuainfo)
     context.setContextProperty("_Reterminalinfo", reterminalinfo)
-    
+    context.setContextProperty("_OPCclient", Myclient)
+
     sysinfo.start()
     netinfo.start()
 
@@ -129,7 +134,7 @@ if __name__ == '__main__':
     log.info("begin to create the loops...")
     
     #loop to handle opcua client
-    T_opcua = threading.Thread(target=Launch_OPCUA, args = (opcuainfo,))
+    T_opcua = threading.Thread(target=Launch_OPCUA, args = (Myclient,))
     T_opcua.setDaemon(True)
     T_opcua.start()
     

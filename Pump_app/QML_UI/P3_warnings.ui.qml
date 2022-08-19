@@ -57,7 +57,7 @@ Item {
             font.pixelSize: 15
             onClicked:
             {
-                _Opcuainfo.Write_modbus_boolean(82,1)
+                _OPCclient.Write_node("Acquittement",1)
             }
         }
     }
@@ -83,7 +83,7 @@ Item {
             font.pixelSize: 15
             onClicked:
             {
-                _Opcuainfo.Write_modbus_boolean(82,1)
+                _OPCclient.Write_node("Acquittement",1)
             }
         }
     }

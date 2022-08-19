@@ -29,7 +29,7 @@ fi
 
 echo "qt demo starting..."
 # python3 -m Pump_app.control  -l $loglevel
-python3 -m Pump_app.control  -l $loglevel>Guilogs.log 2>&1
+python3 -m Pump_app.control  -l info>Guilogs.log 2>&1
 echo "end of qt demo"
 
 if [[ $(cat /etc/hostname | grep raspberry) ]]

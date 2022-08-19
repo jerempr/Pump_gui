@@ -81,12 +81,12 @@ ApplicationWindow {
                         text:  qsTr(" \n No connexion to the server... \n Retrying in 10s...")
                         horizontalAlignment: Text.AlignHCenter
                     }
-                    AnimatedImage { 
-                        id: loadinganimation
-                        source: "../images/loading.gif" 
-                        y: 100
-                        x: 100
-                    }
+                    // AnimatedImage { 
+                    //     id: loadinganimation
+                    //     source: "../images/loading.gif" 
+                    //     y: 100
+                    //     x: 100
+                    // }
                 }
             }
         }
@@ -176,10 +176,10 @@ ApplicationWindow {
                 anchors.fill: parent
                 color: "white"
                 Image {
-                    source: "../images/logo.png"
+                    source: "../images/logo_opm_horizontal_black.png"
                     anchors.centerIn: parent
-                    width: 500
-                    height: 500
+                    // width: 500
+                    // height: 500
                 }
                 Text {
                     // anchors.centerIn: parent
